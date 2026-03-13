@@ -9,13 +9,15 @@ import {
   UploadCloud, 
   Activity, 
   MessageCircle, 
-  BookOpen 
+  BookOpen,
+  HeartPulse
 } from "lucide-react"
 
 const navItems = [
   { name: "Home", path: "/", icon: <Home className="w-5 h-5" /> },
   { name: "Insights", path: "/insights", icon: <Sparkles className="w-5 h-5" /> },
   { name: "Diagnosis", path: "/diagnose", icon: <Activity className="w-5 h-5" /> },
+  { name: "Wellness", path: "/wellness", icon: <HeartPulse className="w-5 h-5" /> },
   { name: "Messages", path: "/communication", icon: <MessageCircle className="w-5 h-5" /> },
   { name: "Education", path: "/disease-info", icon: <BookOpen className="w-5 h-5" /> },
 ]
@@ -26,7 +28,7 @@ export default function Navbar() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[85%] max-w-6xl">
+    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
       <div className="bg-white/90 backdrop-blur-xl border border-black/5 shadow-lg shadow-black/[0.05] rounded-2xl px-10 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
