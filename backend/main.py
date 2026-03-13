@@ -89,7 +89,9 @@ async def predict_pneumonia(file: UploadFile = File(...)):
         return {
             "success": True,
             "prediction": result["prediction"],
-            "confidence": result["confidence"]
+            "confidence": result["confidence"],
+            "heatmap": result["heatmap"],          # 👈 send heatmap
+            "affected_area": result["affected_area"]  # 👈 send severity data
         }
 
     except Exception as e:
@@ -98,3 +100,4 @@ async def predict_pneumonia(file: UploadFile = File(...)):
             status_code=500,
             detail=str(e)
         )
+
