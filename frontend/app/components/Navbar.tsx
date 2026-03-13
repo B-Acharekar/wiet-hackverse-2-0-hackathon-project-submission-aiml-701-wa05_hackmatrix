@@ -28,19 +28,19 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
-      <div className="bg-white/80 backdrop-blur-xl border border-white/40 shadow-lg shadow-black/[0.03] rounded-[2.5rem] px-8 py-3 flex items-center justify-between">
+      <div className="bg-white/90 backdrop-blur-xl border border-black/5 shadow-lg shadow-black/[0.05] rounded-2xl px-8 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pastel-pink to-pastel-violet flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pastel-pink to-pastel-violet flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-500">
             <MediSeenEyeLogo className="w-9 h-9" />
           </div>
-          <span className="text-2xl font-black text-black tracking-tight">
+          <span className="text-2xl font-black text-black tracking-tight uppercase">
             MediSeen
           </span>
         </Link>
         
-        {/* Navigation Tabs */}
-        <div className="flex items-center gap-1">
+        {/* Navigation Tabs - Boxy Style */}
+        <div className="flex items-center gap-2">
           {navItems.map((item) => {
             const isActive = item.path === "/" 
               ? pathname === "/" 
@@ -50,16 +50,16 @@ export default function Navbar() {
               <Link 
                 key={item.name} 
                 href={item.path}
-                className={`relative px-5 py-2.5 rounded-full transition-all duration-300 flex items-center gap-2 group ${
+                className={`relative px-6 py-3 rounded-xl transition-all duration-300 flex items-center gap-3 group ${
                   isActive 
                     ? "text-black" 
-                    : "text-black/60 hover:text-black"
+                    : "text-black/40 hover:text-black"
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="navbar-active-bg"
-                    className="absolute inset-0 bg-gradient-to-r from-pastel-pink/40 to-pastel-violet/30 rounded-full border border-white"
+                    className="absolute inset-0 bg-gradient-to-br from-white to-slate-50 rounded-xl border-b-4 border-pastel-violet shadow-sm"
                     initial={false}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
@@ -67,15 +67,15 @@ export default function Navbar() {
                 <div className={`relative z-10 transition-transform group-hover:scale-110 ${isActive ? "text-pastel-violet" : ""}`}>
                   {item.icon}
                 </div>
-                <span className="relative z-10 font-bold text-sm tracking-tight">{item.name}</span>
+                <span className="relative z-10 font-black text-xs uppercase tracking-widest">{item.name}</span>
               </Link>
             )
           })}
         </div>
         
         {/* Profile/Menu Mock */}
-        <div className="w-10 h-10 rounded-full bg-pastel-blue/30 border border-pastel-blue/50 flex items-center justify-center text-pastel-blue cursor-pointer hover:bg-pastel-blue transition-colors">
-          <span className="font-bold text-xs">SP</span>
+        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-pastel-blue to-pastel-blue/60 border border-black/5 flex items-center justify-center text-black cursor-pointer hover:shadow-md transition-all">
+          <span className="font-black text-xs">SP</span>
         </div>
       </div>
     </nav>

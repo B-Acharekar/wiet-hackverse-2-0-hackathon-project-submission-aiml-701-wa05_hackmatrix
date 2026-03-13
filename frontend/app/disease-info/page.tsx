@@ -53,35 +53,31 @@ const skinConditions = [
     treatment: ["Surgical removal", "Immunotherapy", "Targeted therapy", "Radiation in advanced cases"]
   },
   {
+    id: "ringworm",
+    name: "Ringworm",
+    color: "bg-pastel-peach",
+    textColor: "text-black",
+    image: "/images/skin-conditions/ringworm.jpg",
+    description: "A fungal infection, not a worm.",
+    symptoms: ["Circular red rash", "Raised edges", "Clear center", "Itching and scaling"],
+    treatment: ["Antifungal creams", "Oral antifungal medication"]
+  },
+  {
     id: "warts",
     name: "Warts",
     color: "bg-pastel-green",
     textColor: "text-black",
     image: "/images/skin-conditions/warts.png",
     description: "Warts are small, rough growths caused by HPV infection.",
-    types: ["Common warts", "Plantar warts", "Flat warts", "Genital warts"],
-    symptoms: ["Rough bumps on skin", "Small black dots"],
     treatment: ["Salicylic acid", "Cryotherapy", "Laser treatment", "Surgical removal"]
   },
   {
     id: "molluscum",
     name: "Molluscum Contagiosum",
     color: "bg-pastel-yellow",
-    textColor: "text-slate-800",
+    textColor: "text-black",
     description: "A viral infection causing small raised bumps.",
-    symptoms: ["Small pearly bumps", "Central dimple", "Usually painless"],
-    transmission: ["Skin contact", "Shared towels or clothing"],
     treatment: ["Often resolves on its own", "Cryotherapy", "Curettage", "Topical medicines"]
-  },
-  {
-    id: "ringworm",
-    name: "Ringworm",
-    color: "bg-pastel-peach",
-    textColor: "text-slate-800",
-    description: "A fungal infection, not a worm.",
-    symptoms: ["Circular red rash", "Raised edges", "Clear center", "Itching and scaling"],
-    types: ["Tinea corporis", "Athlete’s foot", "Scalp ringworm", "Jock itch"],
-    treatment: ["Antifungal creams", "Oral antifungal medication"]
   }
 ]
 
@@ -114,8 +110,8 @@ export default function EducationPage() {
       </section>
 
       {/* 2. Respiratory Section (Pneumonia) */}
-      <section id="pneumonia" className="bg-white rounded-[4rem] p-12 md:p-20 shadow-xl shadow-black/[0.02] border border-slate-50 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-pastel-blue/5 rounded-full -mr-40 -mt-40"></div>
+      <section id="pneumonia" className="bg-gradient-to-br from-white to-slate-50 rounded-2xl p-12 md:p-20 shadow-xl shadow-black/[0.05] border border-black/5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-pastel-blue/10 rounded-full -mr-40 -mt-40"></div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-10">
@@ -132,7 +128,7 @@ export default function EducationPage() {
             </div>
 
             <div className="grid grid-cols-2 gap-6">
-              <div className="p-6 rounded-3xl bg-slate-50 space-y-3">
+              <div className="p-6 rounded-2xl bg-white border border-black/5 shadow-sm space-y-3">
                 <Thermometer className="w-6 h-6 text-pastel-pink" />
                 <h4 className="font-black text-black">Key Symptoms</h4>
                 <ul className="text-sm text-black font-bold space-y-1.5">
@@ -141,7 +137,7 @@ export default function EducationPage() {
                   <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5" /> Short Breath</li>
                 </ul>
               </div>
-              <div className="p-6 rounded-3xl bg-slate-50 space-y-3">
+              <div className="p-6 rounded-2xl bg-white border border-black/5 shadow-sm space-y-3">
                 <Stethoscope className="w-6 h-6 text-pastel-green" />
                 <h4 className="font-black text-black">AI Logic</h4>
                 <p className="text-xs text-black font-bold leading-relaxed">
@@ -152,8 +148,8 @@ export default function EducationPage() {
           </div>
 
           <div className="relative group">
-            <div className="absolute inset-0 bg-pastel-blue/10 rounded-[3rem] group-hover:scale-105 transition-transform duration-700"></div>
-            <div className="relative rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl">
+            <div className="absolute inset-0 bg-pastel-blue/20 rounded-2xl group-hover:scale-105 transition-transform duration-700"></div>
+            <div className="relative rounded-2xl overflow-hidden border-8 border-white shadow-2xl">
                <Image 
                 src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?auto=format&fit=crop&q=80&w=800" 
                 alt="Pneumonia Visualization" 
@@ -172,11 +168,11 @@ export default function EducationPage() {
             <h2 className="text-5xl font-black text-black">Skin Problems</h2>
             <p className="text-xl text-black font-bold">Comprehensive guide to common dermatological conditions</p>
           </div>
-          <div className="bg-white px-8 py-4 rounded-3xl shadow-sm border border-slate-50 flex items-center gap-3">
-             <div className="w-10 h-10 rounded-full bg-pastel-pink/20 flex items-center justify-center text-pastel-pink">
+          <div className="bg-white px-8 py-4 rounded-xl shadow-sm border border-black/5 flex items-center gap-3">
+             <div className="w-10 h-10 rounded-lg bg-pastel-pink/20 flex items-center justify-center text-pastel-pink">
                 <Microscope className="w-5 h-5" />
              </div>
-             <span className="text-sm font-black text-slate-600 uppercase tracking-widest">Clinical Visuals</span>
+             <span className="text-sm font-black text-black uppercase tracking-widest">Clinical Visuals</span>
           </div>
         </div>
 
@@ -185,14 +181,14 @@ export default function EducationPage() {
           {skinConditions.map((condition) => (
             <fm.button
               key={condition.id}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ y: -5 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setSelectedCondition(condition)}
-              className={`p-10 rounded-[3rem] ${condition.color} ${condition.textColor} shadow-lg shadow-black/[0.05] transition-all text-left relative overflow-hidden group min-h-[220px] flex flex-col justify-between`}
+              className={`p-10 rounded-2xl ${condition.color} ${condition.textColor} shadow-lg shadow-black/[0.08] transition-all text-left relative overflow-hidden group min-h-[220px] flex flex-col justify-between border border-white/20`}
             >
-              <div className="absolute -right-4 -top-4 w-32 h-32 bg-white/10 rounded-full group-hover:scale-110 transition-transform"></div>
+              <div className="absolute -right-4 -top-4 w-32 h-32 bg-white/20 rounded-full group-hover:scale-110 transition-transform"></div>
               <h3 className="text-3xl font-black leading-tight relative z-10">{condition.name}</h3>
-              <div className="flex items-center gap-2 font-black text-xs uppercase tracking-widest opacity-80 relative z-10 bg-white/20 w-fit px-4 py-2 rounded-full backdrop-blur-sm mt-4">
+              <div className="flex items-center gap-2 font-black text-xs uppercase tracking-widest opacity-80 relative z-10 bg-white/30 w-fit px-6 py-3 rounded-lg backdrop-blur-sm mt-4 border border-white/20 shadow-sm">
                 View Details <ArrowRight className="w-4 h-4" />
               </div>
             </fm.button>
@@ -200,13 +196,13 @@ export default function EducationPage() {
         </div>
 
         {/* Other Similar Skin Conditions quick grid */}
-        <div className="bg-slate-50 rounded-[4rem] p-12 md:p-16 space-y-10">
-          <h3 className="text-3xl font-black text-black">Other Similar Skin Conditions</h3>
+        <div className="bg-gradient-to-br from-white to-slate-50 rounded-2xl p-12 md:p-16 space-y-10 border border-black/5 shadow-sm">
+          <h3 className="text-3xl font-black text-black font-black uppercase tracking-tight">Other Clinical Conditions</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {otherConditions.map((item) => (
-              <div key={item.name} className="bg-white p-8 rounded-[2.5rem] border border-slate-200/50 shadow-sm space-y-2">
+              <div key={item.name} className="bg-white p-8 rounded-xl border border-black/5 shadow-sm space-y-2 hover:shadow-md transition-all">
                 <h4 className="text-xl font-black text-black">{item.name}</h4>
-                <p className="text-sm text-black font-bold leading-relaxed">{item.desc}</p>
+                <p className="text-sm text-black font-bold leading-relaxed opacity-80">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -226,12 +222,12 @@ export default function EducationPage() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="bg-white w-full max-w-5xl rounded-[4rem] overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col"
+              className="bg-white w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col border border-black/10"
             >
               {/* Header Close */}
               <button 
                 onClick={() => setSelectedCondition(null)}
-                className="absolute right-8 top-8 z-10 w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center hover:scale-110 transition-transform"
+                className="absolute right-8 top-8 z-10 w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -239,10 +235,10 @@ export default function EducationPage() {
               <div className="flex-1 overflow-y-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2">
                   {/* Left: Image & Title */}
-                  <div className={`p-12 md:p-20 ${selectedCondition.color} ${selectedCondition.textColor} flex flex-col justify-center gap-8`}>
-                    <div className="relative aspect-square rounded-[3rem] overflow-hidden shadow-inner bg-white/20 p-4 border-2 border-white/30">
+                  <div className={`p-12 md:p-20 ${selectedCondition.color} ${selectedCondition.textColor} flex flex-col justify-center gap-8 bg-gradient-to-br from-current to-white/20`}>
+                    <div className="relative aspect-square rounded-xl overflow-hidden shadow-2xl bg-white/20 p-4 border-2 border-white/30">
                       {selectedCondition.image ? (
-                        <Image src={selectedCondition.image} alt={selectedCondition.name} width={600} height={600} className="w-full h-full object-cover rounded-2xl" />
+                        <Image src={selectedCondition.image} alt={selectedCondition.name} width={600} height={600} className="w-full h-full object-cover rounded-lg" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                            <Microscope className="w-24 h-24 opacity-40" />
@@ -262,7 +258,7 @@ export default function EducationPage() {
                         <h4 className="text-xs font-black uppercase tracking-[0.2em] text-black">Primary Symptoms</h4>
                         <div className="flex flex-wrap gap-3">
                           {selectedCondition.symptoms.map(s => (
-                            <span key={s} className="px-5 py-2 rounded-full bg-slate-50 border border-slate-100 text-sm font-bold text-black flex items-center gap-2">
+                            <span key={s} className="px-5 py-2 rounded-lg bg-white border border-black/5 shadow-sm text-sm font-bold text-black flex items-center gap-2">
                               <AlertCircle className="w-4 h-4 text-pastel-pink" /> {s}
                             </span>
                           ))}
@@ -275,7 +271,7 @@ export default function EducationPage() {
                         <h4 className="text-xs font-black uppercase tracking-[0.2em] text-black">Causes / Triggers</h4>
                         <div className="grid grid-cols-1 gap-3">
                           {selectedCondition.causes.map(c => (
-                            <div key={c} className="flex items-start gap-3 p-4 rounded-2xl bg-pastel-yellow/5 border border-pastel-yellow/10">
+                            <div key={c} className="flex items-start gap-4 p-5 rounded-xl bg-pastel-yellow/5 border border-pastel-yellow/20 shadow-sm">
                               <Info className="w-5 h-5 text-pastel-yellow mt-0.5 flex-shrink-0" />
                               <span className="text-sm font-bold text-black leading-relaxed">{c}</span>
                             </div>
@@ -289,7 +285,7 @@ export default function EducationPage() {
                           <h4 className="text-xs font-black uppercase tracking-[0.2em] text-black">Condition Types</h4>
                           <div className="flex flex-wrap gap-3">
                             {selectedCondition.types.map(t => (
-                              <span key={t} className="px-5 py-2 rounded-full bg-pastel-blue/10 text-black text-xs font-black border border-pastel-blue/20">
+                              <span key={t} className="px-5 py-2 rounded-lg bg-pastel-blue/20 text-black text-xs font-black border border-pastel-blue/30 shadow-sm">
                                 {t}
                               </span>
                             ))}
@@ -301,7 +297,7 @@ export default function EducationPage() {
                       <h4 className="text-xs font-black uppercase tracking-[0.2em] text-black">Treatment Plan</h4>
                       <div className="grid grid-cols-1 gap-3">
                         {selectedCondition.treatment.map(t => (
-                          <div key={t} className="flex items-center gap-3 p-4 rounded-2xl bg-pastel-green/5 border border-pastel-green/10">
+                          <div key={t} className="flex items-center gap-4 p-5 rounded-xl bg-pastel-green/5 border border-pastel-green/20 shadow-sm">
                             <CheckCircle2 className="w-5 h-5 text-pastel-green" />
                             <span className="text-sm font-bold text-black">{t}</span>
                           </div>
@@ -313,9 +309,9 @@ export default function EducationPage() {
               </div>
 
               {/* Footer CTA */}
-              <div className="p-8 border-t border-slate-50 flex items-center justify-between bg-slate-50/50">
-                 <p className="text-xs text-black font-bold max-w-sm">All information is for clinical awareness. Consult a specialist for specific case diagnosis.</p>
-                 <Link href="/upload" className="flex items-center gap-2 px-8 py-3 bg-slate-900 text-white rounded-full font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform">
+              <div className="p-8 border-t border-black/5 flex items-center justify-between bg-slate-50/30">
+                 <p className="text-xs text-black/60 font-black max-w-sm uppercase tracking-wider">Clinical Awareness Guide • Consult specialists for diagnosis.</p>
+                 <Link href="/upload" className="flex items-center gap-3 px-10 py-4 bg-black text-white rounded-xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform shadow-xl">
                    Start Diagnosis <ArrowRight className="w-4 h-4" />
                  </Link>
               </div>
