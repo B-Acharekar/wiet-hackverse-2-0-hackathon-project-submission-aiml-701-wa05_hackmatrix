@@ -66,32 +66,60 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
     }
   }
 
-  const runAnalysis = async () => {
-    if (!file) return
-    
-    setIsAnalyzing(true)
-    setResult(null)
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsAnalyzing(false)
-      const mockResult: DiagnosisResult = {
-        diseaseId: "pneumonia",
-        prediction: "Pneumonia",
-        confidence: 0.94,
-        explanation: "The AI detected high-density opacities in the lower lobe of the right lung, suggesting active bacterial pneumonia. The pattern is consistent with clinical presentations of lobar pneumonia.",
-        nextSteps: [
-          "Prescribe amoxicillin or appropriate antibiotic",
-          "Schedule follow-up X-ray in 14 days",
-          "Advise increased fluid intake and rest"
-        ],
-        severity: "medium"
-      }
-      
-      setResult("Analysis complete. Potential indicators of Pneumonia identified.")
-      if (onAnalysisComplete) onAnalysisComplete(mockResult)
-    }, 3000)
+const runAnalysis = async () => {
+  if (!file) return
+
+  setIsAnalyzing(true)
+  setResult(null)
+
+  try {
+
+    const formData = new FormData()
+    formData.append("file", file)
+
+    const response = await fetch("http://localhost:8000/predict/pneumonia", {
+      method: "POST",
+      body: formData
+    })
+
+    const data = await response.json()
+
+    const prediction = data.prediction
+    const confidence = parseFloat(data.confidence.replace("%", "")) / 100
+
+    const aiResult: DiagnosisResult = {
+      diseaseId: "pneumonia",
+      prediction: prediction,
+      confidence: confidence,
+      severity: prediction === "PNEUMONIA" ? "high" : "low",
+      explanation:
+        prediction === "PNEUMONIA"
+          ? "The AI detected abnormal lung opacities consistent with pneumonia infection patterns."
+          : "No abnormal lung opacity patterns were detected in the scan.",
+      nextSteps:
+        prediction === "PNEUMONIA"
+          ? [
+              "Consult pulmonologist immediately",
+              "Prescribe antibiotics if bacterial pneumonia confirmed",
+              "Schedule follow-up chest X-ray"
+            ]
+          : [
+              "Maintain routine monitoring",
+              "Consult physician if symptoms persist"
+            ]
+    }
+
+    setIsAnalyzing(false)
+    setResult(`Analysis complete. Prediction: ${prediction}`)
+
+    if (onAnalysisComplete) onAnalysisComplete(aiResult)
+
+  } catch (error) {
+    console.error(error)
+    setIsAnalyzing(false)
+    alert("AI analysis failed. Please check backend server.")
   }
+}
 
   return (
     <div className="w-full">
