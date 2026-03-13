@@ -11,6 +11,11 @@ import uuid
 import traceback
 from fastapi.responses import FileResponse
 
+# ADD THESE IMPORTS
+import sys
+sys.path.append("../model")
+from utils.inference import MedicalClassifier
+
 load_dotenv()
 
 UPLOAD_DIR = "uploads"
@@ -35,6 +40,16 @@ else:
         'projectId': os.getenv("FIREBASE_PROJECT_ID", "mediseen")
     })
 
+<<<<<<< HEAD
+=======
+# LOAD MODEL (NEW)
+classifier = MedicalClassifier(
+    model_path="../model/models/pneumonia_resnet50_model.h5",
+    class_names=["NORMAL", "PNEUMONIA"]
+)
+
+# Request model
+>>>>>>> 711b9ddb24bee9afe280d96332ebe9a89cfb97bb
 class TokenRequest(BaseModel):
     token: str
 
@@ -104,6 +119,7 @@ async def predict_image(image: UploadFile = File(...)):
         traceback.print_exc()
         print(f"Backend-to-Model connection failed: {e}")
 
+<<<<<<< HEAD
     return {
         "prediction": prediction,
         "confidence": confidence,
@@ -117,3 +133,39 @@ async def predict_image(image: UploadFile = File(...)):
         ],
         "severity": "medium" if prediction == "PNEUMONIA" else "low"
     }
+=======
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid authentication token"
+        )
+
+
+# ---------------------------
+# NEW PNEUMONIA PREDICTION API
+# ---------------------------
+
+@app.post("/predict/pneumonia")
+async def predict_pneumonia(file: UploadFile = File(...)):
+
+    try:
+
+        image_bytes = await file.read()
+
+        result = classifier.predict(image_bytes)
+
+        return {
+            "success": True,
+            "prediction": result["prediction"],
+            "confidence": result["confidence"],
+            "heatmap": result["heatmap"],          # 👈 send heatmap
+            "affected_area": result["affected_area"]  # 👈 send severity data
+        }
+
+    except Exception as e:
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+
+>>>>>>> 711b9ddb24bee9afe280d96332ebe9a89cfb97bb
