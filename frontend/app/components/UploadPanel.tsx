@@ -85,7 +85,11 @@ const runAnalysis = async () => {
     const data = await response.json()
 
     const prediction = data.prediction
-    const confidence = parseFloat(data.confidence.replace("%", "")) / 100
+
+    const confidence =
+      typeof data.confidence === "string"
+        ? parseFloat(data.confidence.replace("%", "")) / 100
+        : data.confidence
 
     const aiResult: DiagnosisResult = {
       diseaseId: "pneumonia",
@@ -120,6 +124,7 @@ const runAnalysis = async () => {
     alert("AI analysis failed. Please check backend server.")
   }
 }
+
 
   return (
     <div className="w-full">
