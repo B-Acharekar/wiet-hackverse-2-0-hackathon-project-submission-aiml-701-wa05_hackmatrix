@@ -18,7 +18,6 @@ const navItems = [
   { name: "Insights", path: "/insights", icon: <Sparkles className="w-5 h-5" /> },
   { name: "Diagnosis", path: "/diagnose", icon: <Activity className="w-5 h-5" /> },
   { name: "Wellness", path: "/wellness", icon: <HeartPulse className="w-5 h-5" /> },
-  { name: "Messages", path: "/communication", icon: <MessageCircle className="w-5 h-5" /> },
   { name: "Education", path: "/disease-info", icon: <BookOpen className="w-5 h-5" /> },
 ]
 
@@ -35,7 +34,7 @@ export default function Navbar() {
           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pastel-pink to-pastel-violet flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-500">
             <MediSeenEyeLogo className="w-9 h-9" />
           </div>
-          <span className="text-2xl font-black text-black tracking-tight uppercase">
+          <span className="text-2xl font-black text-black tracking-tight">
             MediSeen
           </span>
         </Link>

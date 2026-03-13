@@ -12,7 +12,8 @@ import {
   RotateCcw,
   Zap,
   ShieldCheck,
-  ArrowRight
+  ArrowRight,
+  Image as ImageIcon
 } from "lucide-react"
 
 export interface DiagnosisResult {
@@ -22,6 +23,7 @@ export interface DiagnosisResult {
   explanation: string;
   nextSteps: string[];
   severity: "low" | "medium" | "high";
+  heatmapUrl?: string;
 }
 
 interface ResultPanelProps {
@@ -115,6 +117,28 @@ export default function ResultPanel({ result, onReset }: ResultPanelProps) {
               {result.explanation}
             </p>
           </section>
+
+          {result.heatmapUrl && (
+            <section className="space-y-4">
+              <div className="flex items-center gap-3 text-pastel-pink">
+                <ImageIcon className="w-5 h-5" />
+                <h3 className="text-xs font-black uppercase tracking-[0.2em]">Medical Visualization (Grad-CAM)</h3>
+              </div>
+              <div className="relative rounded-xl overflow-hidden border border-black/5 shadow-xl bg-white p-4 inline-block">
+                <img 
+                  src={result.heatmapUrl} 
+                  alt="Grad-CAM Heatmap" 
+                  className="max-h-[400px] rounded-lg object-contain w-full"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = 'none';
+                  }}
+                />
+                <p className="mt-4 text-[11px] font-bold text-black/50 italic px-2">
+                  * Colored regions indicate areas of high interest identified by the neural network.
+                </p>
+              </div>
+            </section>
+          )}
 
           <section className="space-y-4">
             <div className="flex items-center gap-3 text-pastel-green">

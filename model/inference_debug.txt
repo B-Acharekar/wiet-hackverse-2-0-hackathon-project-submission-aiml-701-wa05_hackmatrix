@@ -1,0 +1,63 @@
+﻿import tensorflow as tf
+import numpy as np
+from PIL import Image
+import io
+
+
+class MedicalClassifier:
+    def __init__(self, model_path, num_classes=2, model_type="resnet", class_names=None):
+        # Load trained model
+        self.model = tf.keras.models.load_model(model_path)
+
+        # Class labels
+        self.class_names = class_names if class_names else ["NORMAL", "PNEUMONIA"]
+
+        # Store input size
+        self.img_size = (224, 224)
+
+    def preprocess(self, image_bytes):
+        """
+        Convert uploaded image to model-ready tensor
+        """
+
+        # Load image
+        img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+
+        # Resize to training size
+        img = img.resize(self.img_size)
+
+        # Convert to numpy
+        img_array = np.array(img).astype("float32")
+
+        # Normalize (same as training)
+        img_array = img_array / 255.0
+
+        # Add batch dimension
+        img_array = np.expand_dims(img_array, axis=0)
+
+        return img_array
+
+    def predict(self, image_bytes):
+        """
+        Run inference on uploaded image
+        """
+
+        img_array = self.preprocess(image_bytes)
+
+        # Run model prediction
+        prediction = float(self.model.predict(img_array, verbose=0)[0][0])
+
+        print("RAW MODEL OUTPUT:", prediction)
+
+        # Determine label
+        if prediction >= 0.5:
+            label = "PNEUMONIA"
+            confidence = prediction
+        else:
+            label = "NORMAL"
+            confidence = 1 - prediction
+
+        return {
+            "prediction": label,
+            "confidence": float(confidence)
+        }

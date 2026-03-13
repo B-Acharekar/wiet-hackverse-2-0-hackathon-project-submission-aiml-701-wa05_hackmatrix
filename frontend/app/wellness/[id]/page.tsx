@@ -109,7 +109,15 @@ const lifestyleGuidance = [
       "Maintain clean bedding and clothing."
     ]
   }
-]
+];
+
+interface DietPlan {
+  recommended: string[];
+  limit: string[];
+  hydration: string;
+  goals: string;
+  mealPlan: { meal: string; idea: string; }[];
+}
 
 export default function WellnessDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const unwrappedParams = use(params)
@@ -131,7 +139,7 @@ export default function WellnessDetailPage({ params }: { params: Promise<{ id: s
   })
 
   const [generating, setGenerating] = useState(false)
-  const [dietPlan, setDietPlan] = useState<any>(null)
+  const [dietPlan, setDietPlan] = useState<DietPlan | null>(null)
 
   const handleGenerateDiet = (e: React.FormEvent) => {
     e.preventDefault()
@@ -221,14 +229,14 @@ export default function WellnessDetailPage({ params }: { params: Promise<{ id: s
             </div>
          </div>
          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {lifestyleGuidance.map((guide, i) => (
+            {lifestyleGuidance.map((guide: { title: string; icon: React.ReactNode; tips: string[]; }, i: number) => (
               <div key={i} className="bg-white p-6 rounded-xl border border-black/5 shadow-sm space-y-3">
                  <div className="flex items-center gap-3 text-pastel-blue">
                    {guide.icon}
                    <h3 className="font-black text-xs uppercase tracking-widest text-black">{guide.title}</h3>
                  </div>
                  <ul className="space-y-2">
-                   {guide.tips.map((tip, j) => (
+                   {guide.tips.map((tip: string, j: number) => (
                      <li key={j} className="text-black font-semibold text-sm leading-snug opacity-80">
                        • {tip}
                      </li>
@@ -436,7 +444,7 @@ export default function WellnessDetailPage({ params }: { params: Promise<{ id: s
                <div className="space-y-4 pt-4 border-t border-black/5">
                   <h4 className="text-sm font-black uppercase tracking-tight text-black flex items-center gap-2"><Salad className="w-4 h-4"/> Sample Meal Plan</h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {dietPlan.mealPlan.map((m: any, i: number) => (
+                    {dietPlan.mealPlan.map((m: { meal: string; idea: string; }, i: number) => (
                       <div key={i} className="p-6 bg-white border border-black/10 rounded-xl shadow-sm">
                          <span className="text-[10px] font-black uppercase tracking-widest text-pastel-violet block mb-2">{m.meal}</span>
                          <span className="text-black font-bold text-sm leading-snug">{m.idea}</span>

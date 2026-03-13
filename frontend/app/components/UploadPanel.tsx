@@ -4,6 +4,7 @@ import { useState, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { UploadCloud, Image as ImageIcon, Loader2, Sparkles, X, CheckCircle2 } from "lucide-react"
 import { DiagnosisResult } from "./ResultPanel"
+import { predictImage } from "../services/api"
 
 interface UploadPanelProps {
   onAnalysisComplete?: (result: DiagnosisResult) => void;
@@ -72,25 +73,27 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
     setIsAnalyzing(true)
     setResult(null)
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsAnalyzing(false)
-      const mockResult: DiagnosisResult = {
-        diseaseId: "pneumonia",
-        prediction: "Pneumonia",
-        confidence: 0.94,
-        explanation: "The AI detected high-density opacities in the lower lobe of the right lung, suggesting active bacterial pneumonia. The pattern is consistent with clinical presentations of lobar pneumonia.",
-        nextSteps: [
-          "Prescribe amoxicillin or appropriate antibiotic",
-          "Schedule follow-up X-ray in 14 days",
-          "Advise increased fluid intake and rest"
-        ],
-        severity: "medium"
-      }
+    try {
+      const apiResult = await predictImage(file)
       
-      setResult("Analysis complete. Potential indicators of Pneumonia identified.")
-      if (onAnalysisComplete) onAnalysisComplete(mockResult)
-    }, 3000)
+      const res: DiagnosisResult = {
+        diseaseId: apiResult.diseaseId || "unknown",
+        prediction: apiResult.prediction,
+        confidence: apiResult.confidence,
+        explanation: apiResult.explanation,
+        nextSteps: apiResult.nextSteps || ["Contact a medical professional for details"],
+        severity: apiResult.severity || "medium",
+        heatmapUrl: apiResult.heatmap_url
+      }
+
+      setResult(`Analysis complete. Potential indicators of ${apiResult.prediction} identified.`)
+      if (onAnalysisComplete) onAnalysisComplete(res)
+    } catch (error) {
+      console.error("Backend fetch failed:", error)
+      setResult("Diagnosis failed. Please check if the medical clinical backend is running.")
+    } finally {
+      setIsAnalyzing(false)
+    }
   }
 
   return (

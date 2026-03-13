@@ -1,0 +1,11 @@
+tensorflow-cpu
+numpy
+pillow
+fastapi
+uvicorn
+python-multipart
+torch
+torchvision
+grad-cam
+opencv-python
+httpx

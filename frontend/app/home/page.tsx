@@ -5,7 +5,6 @@ import Link from "next/link"
 import { 
   Plus, 
   Search, 
-  MessageCircle, 
   Sparkles, 
   ChevronRight,
   Heart,
@@ -37,18 +36,18 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.1]"
+            className="text-5xl md:text-7xl font-black text-black leading-[1.1]"
           >
-            Welcome Back, <br /> Dr. Sarah
+            Welcome Back
           </motion.h1>
           
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-xl md:text-2xl text-white/90 font-medium leading-relaxed"
+            className="text-xl md:text-2xl text-black/70 font-medium leading-relaxed"
           >
-            The HackMatrix AI assistant is ready to help you analyze medical imagery and manage patient cases with ease.
+            The MediSeen AI assistant is ready to help you analyze medical imagery and manage patient cases with ease.
           </motion.p>
         </div>
         
@@ -70,7 +69,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {[
             { 
               title: "New Diagnosis", 
@@ -85,13 +84,6 @@ export default function Home() {
               icon: <Search />, 
               color: "bg-pastel-blue", 
               link: "/diagnose" 
-            },
-            { 
-              title: "Consultant Chat", 
-              desc: "Get expert second opinions on complex cases", 
-              icon: <MessageCircle />, 
-              color: "bg-pastel-violet", 
-              link: "/communication" 
             },
           ].map((item, i) => (
             <Link key={item.title} href={item.link}>

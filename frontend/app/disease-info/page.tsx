@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react"
 import { motion as fm, AnimatePresence } from "framer-motion"
-import { 
-  Wind, 
-  Thermometer, 
-  AlertCircle, 
-  CheckCircle2, 
+import {
+  Wind,
+  Thermometer,
+  AlertCircle,
+  CheckCircle2,
   ChevronRight,
   Info,
   Stethoscope,
@@ -57,7 +57,7 @@ const skinConditions = [
     name: "Ringworm",
     color: "bg-pastel-peach",
     textColor: "text-black",
-    image: "/images/skin-conditions/ringworm.jpg",
+    image: "/images/skin-conditions/ringworm.png",
     description: "A fungal infection, not a worm.",
     symptoms: ["Circular red rash", "Raised edges", "Clear center", "Itching and scaling"],
     treatment: ["Antifungal creams", "Oral antifungal medication"]
@@ -76,6 +76,7 @@ const skinConditions = [
     name: "Molluscum Contagiosum",
     color: "bg-pastel-yellow",
     textColor: "text-black",
+    image: "/images/skin-conditions/molluscum contagiosum.png",
     description: "A viral infection causing small raised bumps.",
     treatment: ["Often resolves on its own", "Cryotherapy", "Curettage", "Topical medicines"]
   }
@@ -94,10 +95,10 @@ export default function EducationPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 space-y-24 pb-40">
-      
+
       {/* 1. Page Header */}
       <section className="text-center space-y-6 pt-10">
-        <fm.h1 
+        <fm.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-6xl md:text-8xl font-black text-black tracking-tight"
@@ -112,14 +113,14 @@ export default function EducationPage() {
       {/* 2. Respiratory Section (Pneumonia) */}
       <section id="pneumonia" className="bg-gradient-to-br from-white to-slate-50 rounded-2xl p-12 md:p-20 shadow-xl shadow-black/[0.05] border border-black/5 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-pastel-blue/10 rounded-full -mr-40 -mt-40"></div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-10">
             <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-pastel-blue/10 text-pastel-blue text-xs font-black uppercase tracking-widest border border-pastel-blue/20">
               <Wind className="w-4 h-4" />
               Respiratory Disease Guide
             </div>
-            
+
             <div className="space-y-6">
               <h2 className="text-5xl font-black text-black leading-tight">Understanding <br /> Pneumonia</h2>
               <p className="text-lg text-black font-bold leading-relaxed">
@@ -150,12 +151,12 @@ export default function EducationPage() {
           <div className="relative group">
             <div className="absolute inset-0 bg-pastel-blue/20 rounded-2xl group-hover:scale-105 transition-transform duration-700"></div>
             <div className="relative rounded-2xl overflow-hidden border-8 border-white shadow-2xl">
-               <Image 
-                src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?auto=format&fit=crop&q=80&w=800" 
-                alt="Pneumonia Visualization" 
+              <Image
+                src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?auto=format&fit=crop&q=80&w=800"
+                alt="Pneumonia Visualization"
                 width={800} height={600}
                 className="w-full h-full object-cover"
-               />
+              />
             </div>
           </div>
         </div>
@@ -169,10 +170,10 @@ export default function EducationPage() {
             <p className="text-xl text-black font-bold">Comprehensive guide to common dermatological conditions</p>
           </div>
           <div className="bg-white px-8 py-4 rounded-xl shadow-sm border border-black/5 flex items-center gap-3">
-             <div className="w-10 h-10 rounded-lg bg-pastel-pink/20 flex items-center justify-center text-pastel-pink">
-                <Microscope className="w-5 h-5" />
-             </div>
-             <span className="text-sm font-black text-black uppercase tracking-widest">Clinical Visuals</span>
+            <div className="w-10 h-10 rounded-lg bg-pastel-pink/20 flex items-center justify-center text-pastel-pink">
+              <Microscope className="w-5 h-5" />
+            </div>
+            <span className="text-sm font-black text-black uppercase tracking-widest">Clinical Visuals</span>
           </div>
         </div>
 
@@ -212,20 +213,20 @@ export default function EducationPage() {
       {/* 4. Overlay Detail Section */}
       <AnimatePresence>
         {selectedCondition && (
-          <fm.div 
+          <fm.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-md flex items-center justify-center p-6"
           >
-            <fm.div 
+            <fm.div
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               className="bg-white w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col border border-black/10"
             >
               {/* Header Close */}
-              <button 
+              <button
                 onClick={() => setSelectedCondition(null)}
                 className="absolute right-8 top-8 z-10 w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg"
               >
@@ -241,7 +242,7 @@ export default function EducationPage() {
                         <Image src={selectedCondition.image} alt={selectedCondition.name} width={600} height={600} className="w-full h-full object-cover rounded-lg" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                           <Microscope className="w-24 h-24 opacity-40" />
+                          <Microscope className="w-24 h-24 opacity-40" />
                         </div>
                       )}
                     </div>
@@ -281,16 +282,16 @@ export default function EducationPage() {
                     )}
 
                     {selectedCondition.types && (
-                        <div className="space-y-4">
-                          <h4 className="text-xs font-black uppercase tracking-[0.2em] text-black">Condition Types</h4>
-                          <div className="flex flex-wrap gap-3">
-                            {selectedCondition.types.map(t => (
-                              <span key={t} className="px-5 py-2 rounded-lg bg-pastel-blue/20 text-black text-xs font-black border border-pastel-blue/30 shadow-sm">
-                                {t}
-                              </span>
-                            ))}
-                          </div>
+                      <div className="space-y-4">
+                        <h4 className="text-xs font-black uppercase tracking-[0.2em] text-black">Condition Types</h4>
+                        <div className="flex flex-wrap gap-3">
+                          {selectedCondition.types.map(t => (
+                            <span key={t} className="px-5 py-2 rounded-lg bg-pastel-blue/20 text-black text-xs font-black border border-pastel-blue/30 shadow-sm">
+                              {t}
+                            </span>
+                          ))}
                         </div>
+                      </div>
                     )}
 
                     <div className="space-y-4">
@@ -310,10 +311,10 @@ export default function EducationPage() {
 
               {/* Footer CTA */}
               <div className="p-8 border-t border-black/5 flex items-center justify-between bg-slate-50/30">
-                 <p className="text-xs text-black/60 font-black max-w-sm uppercase tracking-wider">Clinical Awareness Guide • Consult specialists for diagnosis.</p>
-                 <Link href="/diagnose" className="flex items-center gap-3 px-10 py-4 bg-black text-white rounded-xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform shadow-xl">
-                   Start Diagnosis <ArrowRight className="w-4 h-4" />
-                 </Link>
+                <p className="text-xs text-black/60 font-black max-w-sm uppercase tracking-wider">Clinical Awareness Guide • Consult specialists for diagnosis.</p>
+                <Link href="/diagnose" className="flex items-center gap-3 px-10 py-4 bg-black text-white rounded-xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform shadow-xl">
+                  Start Diagnosis <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             </fm.div>
           </fm.div>

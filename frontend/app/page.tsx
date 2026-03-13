@@ -22,7 +22,7 @@ export default function LandingPage() {
             initial={{opacity:0,scale:0.9}}
             animate={{opacity:1,scale:1}}
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/40 border border-white font-bold text-sm"
-
+          >
             <Brain className="w-4 h-4"/>
             Explainable Medical AI
           </motion.div>

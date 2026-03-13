@@ -4,7 +4,7 @@
  */
 
 // Base URLs can be extracted to environment variables later
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "http://localhost:8000";
 
 export interface PredictionResponse {
   prediction: string;
