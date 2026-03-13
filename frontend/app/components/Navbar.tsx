@@ -21,6 +21,8 @@ const navItems = [
   { name: "Education", path: "/disease-info", icon: <BookOpen className="w-5 h-5" /> },
 ]
 
+import { MediSeenEyeLogo } from "./Illustrations"
+
 export default function Navbar() {
   const pathname = usePathname()
 
@@ -28,12 +30,12 @@ export default function Navbar() {
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
       <div className="bg-white/80 backdrop-blur-xl border border-white/40 shadow-lg shadow-black/[0.03] rounded-[2.5rem] px-8 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-pastel-pink to-pastel-violet flex items-center justify-center shadow-sm group-hover:rotate-12 transition-transform duration-500">
-            <span className="text-white font-black text-xl">H</span>
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pastel-pink to-pastel-violet flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500">
+            <MediSeenEyeLogo className="w-9 h-9" />
           </div>
-          <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-pastel-pink to-pastel-violet">
-            HackMatrix
+          <span className="text-2xl font-black text-black tracking-tight">
+            MediSeen
           </span>
         </Link>
         
@@ -50,8 +52,8 @@ export default function Navbar() {
                 href={item.path}
                 className={`relative px-5 py-2.5 rounded-full transition-all duration-300 flex items-center gap-2 group ${
                   isActive 
-                    ? "text-[#4A4A4A]" 
-                    : "text-slate-400 hover:text-slate-600"
+                    ? "text-black" 
+                    : "text-black/60 hover:text-black"
                 }`}
               >
                 {isActive && (

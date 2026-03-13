@@ -21,10 +21,10 @@ export default function UploadPage() {
     <div className="max-w-7xl mx-auto px-6 space-y-12 pb-32">
       {/* Page Header */}
       <header className="space-y-4 pt-12">
-        <h1 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight">
-          Clinical <span className="text-pastel-violet">Diagnosis</span> Tool
+        <h1 className="text-4xl md:text-5xl font-black text-black tracking-tight">
+          Clinical <span className="text-pastel-violet underline decoration-black/10">Diagnosis</span> Tool
         </h1>
-        <p className="text-xl text-slate-400 font-medium max-w-3xl">
+        <p className="text-xl text-black font-bold max-w-3xl">
           Complete the patient profile and upload imagery for a comprehensive AI-assisted evaluation.
         </p>
       </header>
@@ -63,8 +63,8 @@ export default function UploadPage() {
             className="space-y-12 pt-12 border-t border-slate-100"
           >
             <div className="space-y-2">
-               <h2 className="text-3xl font-black text-slate-800">Final Assessment</h2>
-               <p className="text-slate-400 font-medium">Detailed findings and AI-generated heatmap visualizations.</p>
+               <h2 className="text-3xl font-black text-black">Final Assessment</h2>
+               <p className="text-black font-bold">Detailed findings and AI-generated heatmap visualizations.</p>
             </div>
             
             <ResultPanel result={analysisResult} onReset={handleReset} />

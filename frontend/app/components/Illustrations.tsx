@@ -88,3 +88,14 @@ export const ApplyingCreamIllustration = ({ className = "w-32 h-32" }: Illustrat
   <MedicalAssistanceIllustration className={className} />
 )
 
+export const MediSeenEyeLogo = ({ className = "w-12 h-12" }: IllustrationProps) => (
+  <svg viewBox="0 0 200 200" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="95" fill="white" fillOpacity="0.4" />
+    <path d="M40 100C40 100 70 60 100 60C130 60 160 100 160 100C160 100 130 140 100 140C70 140 40 100 40 100Z" stroke="#E0BBE4" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="100" cy="100" r="25" fill="#A5B4FC" stroke="#E0BBE4" strokeWidth="4" />
+    <circle cx="105" cy="95" r="8" fill="white" fillOpacity="0.6" />
+    <path d="M100 40C120 40 140 50 155 65" stroke="#FFD1DC" strokeWidth="6" strokeLinecap="round" />
+    <path d="M45 135C60 150 80 160 100 160" stroke="#FFD1DC" strokeWidth="6" strokeLinecap="round" />
+  </svg>
+)
+

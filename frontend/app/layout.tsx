@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HackMatrix Medical",
-  description: "Friendly AI-powered clinical workspace",
+  title: "MediSeen Clinical Studio",
+  description: "Advanced AI-powered clinical workspace for medical professionals",
 };
 
 export default function RootLayout({

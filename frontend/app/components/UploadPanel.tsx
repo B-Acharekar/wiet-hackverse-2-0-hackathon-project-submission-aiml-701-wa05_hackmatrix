@@ -103,8 +103,8 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
       >
         <div className="relative z-10">
           <div className="mb-10">
-            <h2 className="text-3xl font-black text-slate-800 mb-2">Medical Image Upload</h2>
-            <p className="text-slate-400 font-medium">Upload X-rays or clinical images for AI-assisted assessment.</p>
+            <h2 className="text-3xl font-black text-black mb-2">Medical Image Upload</h2>
+            <p className="text-black font-bold">Upload X-rays or clinical images for AI-assisted assessment.</p>
           </div>
 
           <div 
@@ -135,11 +135,11 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
                   <div className="w-24 h-24 rounded-3xl bg-white shadow-sm flex items-center justify-center mb-6">
                     <UploadCloud className="w-10 h-10 text-pastel-violet" />
                   </div>
-                  <span className="text-xl font-black text-slate-700 mb-2">
+                  <span className="text-xl font-black text-black mb-2">
                     Drag and drop your file here
                   </span>
-                  <span className="text-slate-400 font-medium mb-6">or click to browse from files</span>
-                  <div className="px-6 py-2.5 rounded-full bg-white border border-slate-100 text-slate-400 text-xs font-bold uppercase tracking-widest shadow-sm">
+                  <span className="text-black font-bold mb-6">or click to browse from files</span>
+                  <div className="px-6 py-2.5 rounded-full bg-white border border-slate-100 text-black text-xs font-bold uppercase tracking-widest shadow-sm">
                     JPEG, PNG, HEIC up to 15MB
                   </div>
                 </motion.div>
@@ -154,7 +154,7 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
                 >
                   <button 
                     onClick={clearFile}
-                    className="absolute -top-6 -right-6 p-3 bg-white border border-slate-100 rounded-full text-slate-400 hover:text-pastel-pink hover:shadow-lg transition-all z-20"
+                    className="absolute -top-6 -right-6 p-3 bg-white border border-slate-100 rounded-full text-black hover:text-pastel-pink hover:shadow-lg transition-all z-20"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -163,11 +163,11 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
                     {isAnalyzing && (
                       <div className="absolute inset-0 bg-white/60 backdrop-blur-sm flex flex-col items-center justify-center">
                         <Loader2 className="w-12 h-12 text-pastel-violet animate-spin mb-4" />
-                        <span className="text-slate-700 font-black animate-pulse">Running AI Analysis...</span>
+                        <span className="text-black font-black animate-pulse">Running AI Analysis...</span>
                       </div>
                     )}
                   </div>
-                  <div className="mt-8 flex items-center gap-2 text-slate-400 bg-white px-5 py-2 rounded-full border border-slate-100 shadow-sm">
+                  <div className="mt-8 flex items-center gap-2 text-black bg-white px-5 py-2 rounded-full border border-slate-100 shadow-sm">
                     <ImageIcon className="w-4 h-4 text-pastel-blue" />
                     <span className="text-sm font-bold truncate max-w-[250px]">{file?.name}</span>
                   </div>
@@ -224,8 +224,8 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
                     <CheckCircle2 className="w-8 h-8 text-pastel-green" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-black text-slate-800 mb-2">Analysis Ready</h3>
-                <p className="text-slate-500 font-medium leading-relaxed">
+                <h3 className="text-2xl font-black text-black mb-2">Analysis Ready</h3>
+                <p className="text-black font-bold leading-relaxed">
                   {result}
                 </p>
               </motion.div>
