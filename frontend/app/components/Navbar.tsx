@@ -15,7 +15,6 @@ import {
 const navItems = [
   { name: "Home", path: "/", icon: <Home className="w-5 h-5" /> },
   { name: "Insights", path: "/insights", icon: <Sparkles className="w-5 h-5" /> },
-  { name: "Upload", path: "/upload", icon: <UploadCloud className="w-5 h-5" /> },
   { name: "Diagnosis", path: "/diagnose", icon: <Activity className="w-5 h-5" /> },
   { name: "Messages", path: "/communication", icon: <MessageCircle className="w-5 h-5" /> },
   { name: "Education", path: "/disease-info", icon: <BookOpen className="w-5 h-5" /> },

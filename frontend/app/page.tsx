@@ -66,7 +66,7 @@ export default function Home() {
             <h2 className="text-4xl font-black text-black">Quick Actions</h2>
             <p className="text-black font-bold">Tools to streamline your clinical workflow</p>
           </div>
-          <Link href="/upload" className="text-black font-black flex items-center gap-3 hover:gap-4 transition-all uppercase text-[10px] tracking-[0.2em] bg-white px-8 py-4 rounded-xl border border-black/10 shadow-sm hover:shadow-md">
+          <Link href="/diagnose" className="text-black font-black flex items-center gap-3 hover:gap-4 transition-all uppercase text-[10px] tracking-[0.2em] bg-white px-8 py-4 rounded-xl border border-black/10 shadow-sm hover:shadow-md">
             Clinical Tools <ChevronRight className="w-4 h-4 text-pastel-violet" />
           </Link>
         </div>
@@ -78,7 +78,7 @@ export default function Home() {
               desc: "Upload imagery for AI-assisted analysis and grading", 
               icon: <Plus />, 
               color: "bg-pastel-pink", 
-              link: "/upload" 
+              link: "/diagnose" 
             },
             { 
               title: "Patient Files", 

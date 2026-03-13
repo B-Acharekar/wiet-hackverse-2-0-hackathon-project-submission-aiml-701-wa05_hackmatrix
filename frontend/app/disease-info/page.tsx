@@ -311,7 +311,7 @@ export default function EducationPage() {
               {/* Footer CTA */}
               <div className="p-8 border-t border-black/5 flex items-center justify-between bg-slate-50/30">
                  <p className="text-xs text-black/60 font-black max-w-sm uppercase tracking-wider">Clinical Awareness Guide • Consult specialists for diagnosis.</p>
-                 <Link href="/upload" className="flex items-center gap-3 px-10 py-4 bg-black text-white rounded-xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform shadow-xl">
+                 <Link href="/diagnose" className="flex items-center gap-3 px-10 py-4 bg-black text-white rounded-xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform shadow-xl">
                    Start Diagnosis <ArrowRight className="w-4 h-4" />
                  </Link>
               </div>

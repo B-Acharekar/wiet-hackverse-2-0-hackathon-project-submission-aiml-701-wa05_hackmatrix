@@ -96,15 +96,19 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
   return (
     <div className="w-full">
       <motion.div 
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="bg-white rounded-[2.5rem] p-10 md:p-12 shadow-xl shadow-black/[0.02] border border-slate-100 relative overflow-hidden"
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="bg-gradient-to-br from-white to-slate-50 rounded-2xl p-10 md:p-12 shadow-xl shadow-black/[0.05] border border-black/5 relative overflow-hidden"
       >
         <div className="relative z-10">
-          <div className="mb-10">
-            <h2 className="text-3xl font-black text-black mb-2">Medical Image Upload</h2>
-            <p className="text-black font-bold">Upload X-rays or clinical images for AI-assisted assessment.</p>
+          <div className="mb-10 flex items-center gap-3 border-b border-black/5 pb-6">
+            <div className="w-12 h-12 rounded-xl bg-pastel-pink/10 flex items-center justify-center text-pastel-pink shadow-sm">
+                <ImageIcon className="w-6 h-6" />
+            </div>
+            <div>
+                <h2 className="text-3xl font-black text-black">Image Analysis</h2>
+                <p className="text-black font-bold opacity-80">Upload medical imagery for AI evaluation.</p>
+            </div>
           </div>
 
           <div 
@@ -113,14 +117,14 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
             className={`
-              relative w-full rounded-[2rem] border-2 border-dashed transition-all duration-500 ease-out
+              relative w-full rounded-xl border-2 border-dashed transition-all duration-500 ease-out
               ${isDragging 
-                ? 'border-pastel-pink bg-pastel-pink/5 scale-[1.01]' 
+                ? 'border-pastel-pink bg-pastel-pink/10 scale-[1.01]' 
                 : preview 
-                  ? 'border-slate-100 bg-slate-50/50' 
-                  : 'border-slate-200 bg-slate-50 hover:bg-white hover:border-pastel-violet hover:shadow-lg cursor-pointer'
+                  ? 'border-black/5 bg-white' 
+                  : 'border-black/10 bg-white hover:border-pastel-violet hover:shadow-lg cursor-pointer'
               }
-              p-12 flex flex-col items-center justify-center min-h-[350px]
+              p-12 flex flex-col items-center justify-center min-h-[350px] shadow-sm
             `}
           >
             <AnimatePresence mode="wait">
@@ -132,15 +136,15 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="flex flex-col items-center text-center pointer-events-none"
                 >
-                  <div className="w-24 h-24 rounded-3xl bg-white shadow-sm flex items-center justify-center mb-6">
+                  <div className="w-20 h-20 rounded-xl bg-pastel-violet/10 shadow-sm flex items-center justify-center mb-6">
                     <UploadCloud className="w-10 h-10 text-pastel-violet" />
                   </div>
                   <span className="text-xl font-black text-black mb-2">
-                    Drag and drop your file here
+                    Drag and drop file
                   </span>
-                  <span className="text-black font-bold mb-6">or click to browse from files</span>
-                  <div className="px-6 py-2.5 rounded-full bg-white border border-slate-100 text-black text-xs font-bold uppercase tracking-widest shadow-sm">
-                    JPEG, PNG, HEIC up to 15MB
+                  <span className="text-black font-bold opacity-60 mb-6">or click to browse files</span>
+                  <div className="px-6 py-3 rounded-lg bg-black text-white text-[10px] font-black uppercase tracking-widest shadow-lg">
+                    JPEG, PNG, HEIC (Max 15MB)
                   </div>
                 </motion.div>
               ) : (
@@ -154,11 +158,11 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
                 >
                   <button 
                     onClick={clearFile}
-                    className="absolute -top-6 -right-6 p-3 bg-white border border-slate-100 rounded-full text-black hover:text-pastel-pink hover:shadow-lg transition-all z-20"
+                    className="absolute -top-14 right-0 p-3 bg-black text-white rounded-xl hover:scale-110 transition-all z-20 shadow-xl"
                   >
                     <X className="w-5 h-5" />
                   </button>
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl max-w-full inline-block border-4 border-white">
+                  <div className="relative rounded-xl overflow-hidden shadow-2xl max-w-full inline-block border-8 border-white">
                     <img src={preview} alt="Upload preview" className="max-h-[300px] object-contain" />
                     {isAnalyzing && (
                       <div className="absolute inset-0 bg-white/60 backdrop-blur-sm flex flex-col items-center justify-center">
@@ -166,10 +170,6 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
                         <span className="text-black font-black animate-pulse">Running AI Analysis...</span>
                       </div>
                     )}
-                  </div>
-                  <div className="mt-8 flex items-center gap-2 text-black bg-white px-5 py-2 rounded-full border border-slate-100 shadow-sm">
-                    <ImageIcon className="w-4 h-4 text-pastel-blue" />
-                    <span className="text-sm font-bold truncate max-w-[250px]">{file?.name}</span>
                   </div>
                 </motion.div>
               )}
@@ -183,17 +183,17 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
             />
           </div>
 
-          <div className="mt-12 flex justify-center">
+          <div className="mt-12">
             <motion.button
-              whileHover={{ scale: preview && !isAnalyzing ? 1.05 : 1 }}
-              whileTap={{ scale: preview && !isAnalyzing ? 0.95 : 1 }}
+              whileHover={{ scale: preview && !isAnalyzing ? 1.02 : 1 }}
+              whileTap={{ scale: preview && !isAnalyzing ? 0.98 : 1 }}
               onClick={runAnalysis}
               disabled={!preview || isAnalyzing}
               className={`
-                relative group overflow-hidden px-12 py-5 rounded-[2rem] font-black text-xl transition-all duration-500 shadow-lg flex items-center space-x-3
+                w-full relative group overflow-hidden py-6 rounded-xl font-black text-xl transition-all duration-500 shadow-xl flex items-center justify-center space-x-3 uppercase tracking-widest
                 ${preview 
-                  ? "bg-gradient-to-r from-pastel-pink to-pastel-violet text-white shadow-pastel-pink/20 hover:shadow-pastel-violet/40" 
-                  : "bg-slate-100 text-slate-300 cursor-not-allowed"
+                  ? "bg-black text-white hover:bg-slate-900" 
+                  : "bg-slate-100 text-black/20 cursor-not-allowed"
                 }
               `}
             >
@@ -204,8 +204,8 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-6 h-6" />
-                  <span>Run Analysis</span>
+                  <Sparkles className="w-6 h-6 text-pastel-pink" />
+                  <span>Run Clinical Analysis</span>
                 </>
               )}
             </motion.button>
@@ -215,17 +215,17 @@ export default function UploadPanel({ onAnalysisComplete, onImageUpload }: Uploa
           <AnimatePresence>
             {result && (
               <motion.div
-                initial={{ opacity: 0, y: 10, height: 0 }}
-                animate={{ opacity: 1, y: 0, height: 'auto' }}
-                className="mt-12 bg-pastel-green/10 rounded-[2rem] p-8 border border-pastel-green/20 text-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-8 bg-pastel-green/10 rounded-xl p-8 border border-pastel-green/30 text-center shadow-inner"
               >
                 <div className="flex justify-center mb-4">
-                  <div className="p-4 bg-white rounded-2xl shadow-sm">
+                  <div className="p-3 bg-white rounded-lg shadow-sm">
                     <CheckCircle2 className="w-8 h-8 text-pastel-green" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-black text-black mb-2">Analysis Ready</h3>
-                <p className="text-black font-bold leading-relaxed">
+                <h3 className="text-2xl font-black text-black mb-2 uppercase tracking-tight">Analysis Ready</h3>
+                <p className="text-black font-bold leading-relaxed opacity-80">
                   {result}
                 </p>
               </motion.div>

@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
-import { ChevronDown, Cpu, Zap, Target, BarChart3 } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ChevronDown, Cpu, Zap, Target, BarChart3, BrainCircuit, ShieldCheck } from "lucide-react"
 
 const models = [
   { id: "densenet", name: "Highest Accuracy", tag: "DenseNet121", icon: <Target className="w-5 h-5" />, color: "text-pastel-pink", border: "border-pastel-pink", bg: "bg-pastel-pink/5" },
@@ -17,73 +17,78 @@ export default function ModelSelector() {
   const selectedModel = models.find(m => m.id === selected)
 
   return (
-    <div className="bg-white rounded-[2.5rem] p-10 shadow-xl shadow-black/[0.02] border border-slate-100 h-full">
-      <div className="mb-10">
-        <h2 className="text-3xl font-black text-black mb-2">Diagnostic Engine</h2>
-        <p className="text-black font-bold">Select the AI clinical engine for image processing.</p>
-    <section className="bg-gradient-to-br from-white to-slate-50 p-8 rounded-2xl border border-black/5 shadow-sm space-y-8 h-full">
-      <div className="flex items-center gap-3 border-b border-black/5 pb-4">
-        <div className="w-10 h-10 rounded-lg bg-pastel-violet/20 flex items-center justify-center text-pastel-violet shadow-sm">
-          <BrainCircuit className="w-5 h-5" />
-        </div>
-        <div>
-          <h3 className="text-lg font-black text-black">Diagnostic Intelligence</h3>
-          <p className="text-[10px] text-black font-bold uppercase tracking-widest opacity-60">Select AI Architecture</p>
+    <div className="bg-gradient-to-br from-white to-slate-50 rounded-2xl p-10 shadow-xl shadow-black/[0.05] border border-black/5 h-full flex flex-col space-y-10">
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-pastel-violet/10 flex items-center justify-center text-pastel-violet shadow-sm">
+                <BrainCircuit className="w-6 h-6" />
+            </div>
+            <div>
+                <h2 className="text-3xl font-black text-black">Diagnostic Engine</h2>
+                <p className="text-black font-bold opacity-80">Select the clinical intelligence core.</p>
+            </div>
         </div>
       </div>
 
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-full p-5 rounded-xl border border-black/5 bg-white shadow-sm transition-all duration-300 flex items-center justify-between text-left ${
-            selectedModel ? `${selectedModel.border} ${selectedModel.bg}` : "border-slate-50 bg-slate-50"
+          className={`w-full p-6 rounded-xl border transition-all duration-300 flex items-center justify-between text-left shadow-sm hover:shadow-md ${
+            selectedModel ? `${selectedModel.border} ${selectedModel.bg} bg-white` : "border-slate-50 bg-slate-50"
           }`}
         >
-          <div className="flex items-center gap-4">
-            <div className={`w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center ${selectedModel?.color}`}>
+          <div className="flex items-center gap-5">
+            <div className={`w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center ${selectedModel?.color}`}>
               {selectedModel?.icon}
             </div>
             <div>
-              <p className="text-sm font-black text-black">{selectedModel?.name}</p>
-              <p className="text-[10px] font-bold text-black uppercase tracking-widest opacity-60">{selectedModel?.tag}</p>
+              <p className="text-lg font-black text-black">{selectedModel?.name}</p>
+              <p className="text-xs font-black text-black uppercase tracking-widest opacity-60">{selectedModel?.tag}</p>
             </div>
           </div>
-          <ChevronDown className={`w-5 h-5 text-black transition-transform ${isOpen ? "rotate-180" : ""}`} />
+          <ChevronDown className={`w-6 h-6 text-black transition-transform ${isOpen ? "rotate-180" : ""}`} />
         </button>
 
-        {isOpen && (
-          <div className="absolute z-50 top-full left-0 right-0 mt-2 p-2 bg-white rounded-xl border border-black/5 shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-300">
-            {models.map((model) => (
-              <button
-                key={model.id}
-                onClick={() => {
-                  setSelected(model.id)
-                  setIsOpen(false)
-                }}
-                className={`w-full p-4 rounded-lg transition-all flex items-center gap-4 hover:bg-slate-50 text-left ${
-                  selected === model.id ? "bg-slate-50" : ""
-                }`}
-              >
-                <div className={`w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center ${model.color}`}>
-                  {model.icon}
-                </div>
-                <div className="flex-1">
-                  <p className="font-black text-black text-sm">{model.name}</p>
-                  <p className="text-[10px] font-bold text-black uppercase tracking-widest opacity-60">{model.tag}</p>
-                </div>
-                {selected === model.id && (
-                   <div className={`w-2.5 h-2.5 rounded-full ${model.color.replace('text', 'bg')}`} />
-                )}
-              </button>
-            ))}
-          </div>
-        )}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              className="absolute z-50 top-full left-0 right-0 mt-3 p-3 bg-white rounded-xl border border-black/10 shadow-2xl overflow-hidden"
+            >
+              {models.map((model) => (
+                <button
+                  key={model.id}
+                  onClick={() => {
+                    setSelected(model.id)
+                    setIsOpen(false)
+                  }}
+                  className={`w-full p-5 rounded-lg transition-all flex items-center gap-5 hover:bg-slate-50 text-left ${
+                    selected === model.id ? "bg-slate-50 border-pastel-violet/20" : ""
+                  }`}
+                >
+                  <div className={`w-12 h-12 rounded-xl bg-white shadow-md flex items-center justify-center ${model.color}`}>
+                    {model.icon}
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-black text-black text-sm">{model.name}</p>
+                    <p className="text-[10px] font-bold text-black uppercase tracking-widest opacity-40">{model.tag}</p>
+                  </div>
+                  {selected === model.id && (
+                     <div className={`w-3 h-3 rounded-md ${model.color.replace('text', 'bg')} shadow-sm`} />
+                  )}
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       
-      <div className="mt-10 p-6 bg-pastel-blue/5 rounded-3xl border border-pastel-blue/10 flex items-start gap-4">
-        <Cpu className="w-5 h-5 text-pastel-blue mt-1 flex-shrink-0" />
+      <div className="mt-auto p-6 bg-white rounded-xl border border-black/5 flex items-start gap-4 shadow-sm">
+        <ShieldCheck className="w-6 h-6 text-emerald-500 mt-1 flex-shrink-0" />
         <p className="text-black font-bold text-xs leading-relaxed">
-          Proprietary <span className="text-pastel-blue underline decoration-dotted">MediSeen</span> clinical engines are optimized for high-resolution imagery and HIPAA-compliant data routing.
+          Proprietary <span className="text-pastel-blue font-black underline decoration-black/10">MediSeen</span> clinical engines are optimized for high-resolution imagery and HIPAA-compliant data routing.
         </p>
       </div>
     </div>
