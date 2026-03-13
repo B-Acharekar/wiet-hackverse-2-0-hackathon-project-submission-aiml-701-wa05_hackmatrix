@@ -20,7 +20,7 @@ export default function HeatmapViewer({ originalImage, heatmapImage }: HeatmapVi
       viewport={{ once: true }}
       whileHover={{ y: -5 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full max-w-4xl mx-auto mt-8 bg-[#1E293B] rounded-3xl p-6 md:p-8 shadow-2xl border border-slate-800 transition-shadow duration-300"
+      className="w-full max-w-5xl mx-auto bg-slate-900 rounded-2xl p-8 md:p-10 shadow-2xl border border-white/10 transition-shadow duration-300"
     >
       
       {/* Header section */}

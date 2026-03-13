@@ -127,10 +127,10 @@ export default function Home() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Lungs Knowledge Card */}
-          <Link href="/disease-info?id=pneumonia" className="group">
+          <Link href="/disease-info?id=pneumonia" className="group block h-full">
             <motion.div 
               whileHover={{ y: -5 }}
-              className="bg-gradient-to-br from-white to-slate-50 rounded-2xl border border-black/10 p-10 flex items-center gap-10 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden relative"
+              className="bg-gradient-to-br from-white to-slate-50 rounded-2xl border border-black/10 p-10 flex items-center gap-10 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden relative h-full"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-pastel-green/10 rounded-full -mr-16 -mt-16"></div>
               <div className="relative z-10 w-44 h-44 flex-shrink-0">
@@ -150,10 +150,10 @@ export default function Home() {
           </Link>
 
           {/* Skin Knowledge Card */}
-          <Link href="/disease-info?id=skin-rash" className="group">
+          <Link href="/disease-info?id=skin-rash" className="group block h-full">
             <motion.div 
               whileHover={{ y: -5 }}
-              className="bg-gradient-to-br from-white to-slate-50 rounded-2xl border border-black/10 p-10 flex items-center gap-10 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden relative"
+              className="bg-gradient-to-br from-white to-slate-50 rounded-2xl border border-black/10 p-10 flex items-center gap-10 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden relative h-full"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-pastel-pink/10 rounded-full -mr-16 -mt-16"></div>
               <div className="relative z-10 w-44 h-44 flex-shrink-0">

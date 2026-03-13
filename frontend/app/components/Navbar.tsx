@@ -26,8 +26,8 @@ export default function Navbar() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
-      <div className="bg-white/90 backdrop-blur-xl border border-black/5 shadow-lg shadow-black/[0.05] rounded-2xl px-8 py-3 flex items-center justify-between">
+    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[85%] max-w-6xl">
+      <div className="bg-white/90 backdrop-blur-xl border border-black/5 shadow-lg shadow-black/[0.05] rounded-2xl px-10 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pastel-pink to-pastel-violet flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-500">
@@ -39,7 +39,7 @@ export default function Navbar() {
         </Link>
         
         {/* Navigation Tabs - Boxy Style */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           {navItems.map((item) => {
             const isActive = item.path === "/" 
               ? pathname === "/" 

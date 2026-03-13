@@ -60,16 +60,9 @@ export default function DiagnosePage() {
         </div>
       </div>
 
-      {/* Result Section (Full Width when analysis is done) */}
-      <AnimatePresence>
-        {analysisResult && (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="space-y-16 pt-16 border-t-4 border-black/5"
-          >
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+      {/* Result Section (Always visible containers, populated when analysis is done) */}
+      <div className="space-y-16 pt-16 border-t-4 border-black/5">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                <div className="space-y-3">
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-black text-white text-[10px] font-black uppercase tracking-widest shadow-lg">
                     <ClipboardCheck className="w-3.5 h-3.5" /> Clinical Verification Active
@@ -82,29 +75,39 @@ export default function DiagnosePage() {
                <div className="flex flex-wrap gap-4">
                   <button 
                     onClick={() => setShowHeatmap(!showHeatmap)}
-                    className={`flex items-center gap-3 px-8 py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-xl hover:scale-105 ${
+                    disabled={!analysisResult}
+                    className={`flex items-center gap-3 px-8 py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
                       showHeatmap ? 'bg-pastel-blue text-black border-2 border-black/10' : 'bg-black text-white'
                     }`}
                   >
                     <Eye className="w-4 h-4" />
-                    {showHeatmap ? 'Hide Heatmap' : 'Visual Heatmap'}
+                    {showHeatmap ? 'Hide Heatmap' : 'Heatmap'}
                   </button>
 
                   <button 
                     onClick={() => setShowReport(!showReport)}
-                    className={`flex items-center gap-3 px-8 py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-xl hover:scale-105 ${
+                    disabled={!analysisResult}
+                    className={`flex items-center gap-3 px-8 py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
                       showReport ? 'bg-pastel-pink text-black border-2 border-black/10' : 'bg-black text-white'
                     }`}
                   >
                     <FileText className="w-4 h-4" />
-                    {showReport ? 'Hide Report' : 'Clinical Report'}
+                    {showReport ? 'Hide Report' : 'Report'}
                   </button>
                </div>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                <div className="lg:col-span-2">
-                  <ResultPanel result={analysisResult} onReset={handleReset} />
+                  {analysisResult ? (
+                    <ResultPanel result={analysisResult} onReset={handleReset} />
+                  ) : (
+                    <div className="h-full min-h-[400px] w-full bg-gradient-to-br from-white to-slate-50 rounded-2xl p-10 md:p-12 shadow-inner border border-black/5 flex flex-col items-center justify-center text-center">
+                       <ClipboardCheck className="w-12 h-12 text-black/10 mb-4" />
+                       <h3 className="text-xl font-black text-black uppercase tracking-widest mb-2 opacity-40">Awaiting Analysis</h3>
+                       <p className="text-black font-bold text-sm max-w-xs opacity-40">Please upload a clinical image and run the assessment to unlock these features.</p>
+                    </div>
+                  )}
                </div>
 
                {/* DOCTOR FEEDBACK SECTION */}
@@ -115,7 +118,7 @@ export default function DiagnosePage() {
                         <MessageSquare className="w-5 h-5" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-black text-black">Doctor's Feedback</h3>
+                        <h3 className="text-lg font-black text-black">Doctor Feedback</h3>
                         <p className="text-[10px] font-black text-black uppercase opacity-60 tracking-widest">Clinical Observations</p>
                       </div>
                     </div>
@@ -152,7 +155,7 @@ export default function DiagnosePage() {
 
             {/* CLINICAL REPORT PREVIEW */}
             <AnimatePresence>
-              {showReport && (
+              {showReport && analysisResult && (
                 <motion.section
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -242,9 +245,7 @@ export default function DiagnosePage() {
                 </motion.section>
               )}
             </AnimatePresence>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </div>
     </div>
   )
 }
