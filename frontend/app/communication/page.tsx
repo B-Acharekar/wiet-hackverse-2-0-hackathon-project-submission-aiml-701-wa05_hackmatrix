@@ -32,7 +32,7 @@ export default function CommunicationPage() {
       
       {/* Contact List (Desktop Mock) */}
       <div className="hidden lg:flex flex-col w-80 space-y-4">
-        <h2 className="text-2xl font-black text-slate-800 px-4">Consultations</h2>
+        <h2 className="text-2xl font-black text-black px-4">Consultations</h2>
         <div className="space-y-2 overflow-y-auto">
           {[
             { name: "AI Diagnostic Bot", last: "I've updated the record...", active: true, icon: <Bot /> },
@@ -49,8 +49,8 @@ export default function CommunicationPage() {
                 {contact.icon}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-black text-slate-800 truncate text-sm">{contact.name}</p>
-                <p className="text-slate-400 text-xs truncate">{contact.last}</p>
+                <p className="font-black text-black truncate text-sm">{contact.name}</p>
+                <p className="text-black/60 text-xs truncate font-bold">{contact.last}</p>
               </div>
             </div>
           ))}
@@ -67,17 +67,17 @@ export default function CommunicationPage() {
               <Bot className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="font-black text-slate-800">AI Diagnostic Bot</h3>
+              <h3 className="font-black text-black">AI Diagnostic Bot</h3>
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Consultant</span>
+                <span className="text-[10px] font-black text-black uppercase tracking-widest">Active Consultant</span>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <button className="p-3 rounded-2xl hover:bg-slate-50 text-slate-400"><Phone className="w-5 h-5" /></button>
-            <button className="p-3 rounded-2xl hover:bg-slate-50 text-slate-400"><Video className="w-5 h-5" /></button>
-            <button className="p-3 rounded-2xl hover:bg-slate-50 text-slate-400"><MoreHorizontal className="w-5 h-5" /></button>
+            <button className="p-3 rounded-2xl hover:bg-slate-50 text-black"><Phone className="w-5 h-5" /></button>
+            <button className="p-3 rounded-2xl hover:bg-slate-50 text-black"><Video className="w-5 h-5" /></button>
+            <button className="p-3 rounded-2xl hover:bg-slate-50 text-black"><MoreHorizontal className="w-5 h-5" /></button>
           </div>
         </div>
 
@@ -91,14 +91,14 @@ export default function CommunicationPage() {
               className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div className={`max-w-[80%] space-y-1`}>
-                <div className={`p-6 rounded-[2rem] font-medium text-sm leading-relaxed ${
+                <div className={`p-6 rounded-[2rem] font-bold text-sm leading-relaxed ${
                   msg.sender === 'user' 
-                    ? "bg-pastel-violet text-white rounded-tr-none shadow-lg shadow-pastel-violet/10" 
-                    : "bg-slate-50 text-slate-600 rounded-tl-none border border-slate-100"
+                    ? "bg-pastel-violet text-black rounded-tr-none shadow-lg shadow-pastel-violet/10" 
+                    : "bg-slate-50 text-black rounded-tl-none border border-slate-100"
                 }`}>
                   {msg.text}
                 </div>
-                <p className={`text-[10px] font-bold text-slate-300 ${msg.sender === 'user' ? 'text-right mr-2' : 'ml-2'}`}>
+                <p className={`text-[10px] font-bold text-black ${msg.sender === 'user' ? 'text-right mr-2' : 'ml-2'}`}>
                   {msg.time}
                 </p>
               </div>
@@ -109,7 +109,7 @@ export default function CommunicationPage() {
         {/* Input Bar */}
         <div className="p-8">
           <div className="relative group">
-            <div className="absolute left-6 top-1/2 -translate-y-1/2 flex items-center gap-2 text-slate-300">
+            <div className="absolute left-6 top-1/2 -translate-y-1/2 flex items-center gap-2 text-black/60">
                <button className="hover:text-pastel-violet transition-colors"><Paperclip className="w-5 h-5" /></button>
                <button className="hover:text-pastel-violet transition-colors"><Smile className="w-5 h-5" /></button>
             </div>
@@ -119,12 +119,12 @@ export default function CommunicationPage() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Ask the AI specialized clinical questions..."
-              className="w-full pl-24 pr-24 py-5 bg-slate-50 border border-slate-100 rounded-[2.5rem] focus:outline-none focus:ring-4 focus:ring-pastel-violet/5 focus:bg-white transition-all font-medium text-slate-600 shadow-inner"
+              className="w-full pl-24 pr-24 py-5 bg-slate-50 border border-slate-100 rounded-[2.5rem] focus:outline-none focus:ring-4 focus:ring-pastel-violet/5 focus:bg-white transition-all font-bold text-black shadow-inner"
             />
             <button 
               onClick={handleSend}
               disabled={!input.trim()}
-              className="absolute right-3 top-3 bottom-3 px-8 bg-gradient-to-r from-pastel-pink to-pastel-violet rounded-full text-white font-black text-sm flex items-center gap-2 hover:scale-105 transition-transform disabled:opacity-50 disabled:scale-100 shadow-lg shadow-pastel-violet/20"
+              className="absolute right-3 top-3 bottom-3 px-8 bg-gradient-to-r from-pastel-pink to-pastel-violet rounded-full text-black font-black text-sm flex items-center gap-2 hover:scale-105 transition-transform disabled:opacity-50 disabled:scale-100 shadow-lg shadow-pastel-violet/20"
             >
               <span>SEND</span>
               <Send className="w-4 h-4" />

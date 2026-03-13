@@ -6,6 +6,7 @@ import { Brain, UploadCloud, Activity, Sparkles, ShieldCheck, ChevronRight } fro
 
 export default function LandingPage() {
   return (
+
     <div className="max-w-7xl mx-auto px-6 pt-32 pb-32 space-y-32">
 
       {/* HERO */}
@@ -21,7 +22,7 @@ export default function LandingPage() {
             initial={{opacity:0,scale:0.9}}
             animate={{opacity:1,scale:1}}
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/40 border border-white font-bold text-sm"
-          >
+
             <Brain className="w-4 h-4"/>
             Explainable Medical AI
           </motion.div>
@@ -65,6 +66,7 @@ export default function LandingPage() {
 
       </section>
 
+
       {/* FEATURES */}
 
       <section className="space-y-12">
@@ -77,11 +79,13 @@ export default function LandingPage() {
             Mediseen combines deep learning and explainable AI to assist doctors
             in analyzing medical images faster and more accurately.
           </p>
+
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
 
           {[
+
             {
               title:"Upload Medical Images",
               desc:"Upload X-rays or dermatology scans for instant AI analysis.",
@@ -130,6 +134,7 @@ export default function LandingPage() {
 
       </section>
 
+
       {/* AI WORKFLOW */}
 
       <section className="space-y-12">
@@ -171,6 +176,7 @@ export default function LandingPage() {
         </div>
 
       </section>
+
 
       {/* CTA */}
 

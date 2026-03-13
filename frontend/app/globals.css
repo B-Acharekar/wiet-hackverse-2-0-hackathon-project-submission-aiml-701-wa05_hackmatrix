@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  /* Flo-inspired Light Pastel Healthcare UI Theme */
-  --background: #FFF9FA; /* Extremely soft pinkish beige */
+  /* Flo-inspired Healthcare UI Theme - Darkened & Refined */
+  --background: #FDF4F5; /* Slightly warmer, darker background */
   --surface: #FFFFFF;
-  --foreground: #4A4A4A; /* Soft charcoal for text */
+  --foreground: #000000;
   
-  --accent-pink: #FFD1DC;
-  --accent-violet: #E0BBE4;
-  --accent-green: #D4F4E2;
-  --accent-blue: #D1EAFF;
-  --accent-yellow: #FFF9C4;
-  --accent-peach: #FFE5D9;
+  --accent-pink: #FCA5B0;   /* Darker pastel pink */
+  --accent-violet: #C084FC; /* Darker pastel violet */
+  --accent-green: #86EFAC;  /* Darker pastel green */
+  --accent-blue: #93C5FD;   /* Darker pastel blue */
+  --accent-yellow: #FDE047; /* Darker pastel yellow */
+  --accent-peach: #FDBA74;  /* Darker pastel peach */
   
-  --primary-gradient: linear-gradient(135deg, #FFD1DC 0%, #E0BBE4 100%);
-  --success-gradient: linear-gradient(135deg, #D4F4E2 0%, #B2E2D2 100%);
+  --primary-gradient: linear-gradient(145deg, #FCA5B0 0%, #C084FC 100%);
+  --surface-gradient: linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%);
 }
 
 @theme inline {
@@ -41,7 +41,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbar for Light Theme */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -51,25 +51,21 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #E2E8F0;
-  border-radius: 10px;
+  background: #CBD5E1;
+  border-radius: 4px; /* Boxier scrollbar */
   border: 2px solid var(--background);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #CBD5E1;
-}
-
-/* Flo-style Card Helper */
+/* Boxy Card Helper with Gradient */
 .flo-card {
-  background: var(--surface);
-  border-radius: 2rem;
-  border: 1px solid rgba(0,0,0,0.03);
-  box-shadow: 0 10px 30px -5px rgba(0,0,0,0.04);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: var(--surface-gradient);
+  border-radius: 1rem; /* More boxy than 2rem */
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
 }
 
 .flo-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.07);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px -10px rgba(0,0,0,0.1);
 }
