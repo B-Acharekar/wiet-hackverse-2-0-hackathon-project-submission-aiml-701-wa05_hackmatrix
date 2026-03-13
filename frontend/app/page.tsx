@@ -2,203 +2,198 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { 
-  Plus, 
-  Search, 
-  MessageCircle, 
-  Sparkles, 
-  ChevronRight,
-  Heart,
-  Calendar,
-  ShieldCheck
-} from "lucide-react"
-import { LungsIllustration, SkinRashArmIllustration, MedicalAssistanceIllustration } from "./components/Illustrations"
+import { Brain, UploadCloud, Activity, Sparkles, ShieldCheck, ChevronRight } from "lucide-react"
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <div className="max-w-6xl mx-auto px-6 space-y-24 pb-32">
-      
-      {/* 1. Welcoming Header Section */}
-      <section className="relative overflow-hidden rounded-[3rem] p-12 md:p-20 bg-gradient-to-br from-pastel-pink to-pastel-violet min-h-[450px] flex flex-col justify-center">
-        {/* Decorative background elements */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full mix-blend-overlay filter blur-3xl -mr-20 -mt-20 scale-150 animate-pulse"></div>
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full mix-blend-overlay filter blur-2xl -ml-16 -mb-16 scale-125"></div>
-        
-        <div className="relative z-10 max-w-2xl space-y-6">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/30 border border-white/40 text-sm font-bold text-white shadow-sm"
-          >
-            <Sparkles className="w-4 h-4" />
-            Empowering Your Clinical Decisions
-          </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.1]"
-          >
-            Welcome Back, <br /> Dr. Sarah
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-xl md:text-2xl text-white/90 font-medium leading-relaxed"
-          >
-            The HackMatrix AI assistant is ready to help you analyze medical imagery and manage patient cases with ease.
-          </motion.p>
-        </div>
-        
-        {/* Abstract Illustration placement */}
-        <div className="absolute right-12 bottom-12 hidden md:block opacity-80 rotate-6">
-          <MedicalAssistanceIllustration className="w-64 h-64" bgColor="#FFFFFF" />
-        </div>
-      </section>
+    <div className="max-w-7xl mx-auto px-6 pt-32 pb-32 space-y-32">
 
-      {/* 2. Interactive Quick Actions Grid */}
-      <section className="space-y-10">
-        <div className="flex items-end justify-between px-4">
-          <div className="space-y-1">
-            <h2 className="text-3xl font-black text-slate-800">Quick Actions</h2>
-            <p className="text-slate-400 font-medium">Tools to streamline your daily workflow</p>
-          </div>
-          <Link href="/upload" className="text-pastel-violet font-bold flex items-center gap-1 hover:gap-2 transition-all">
-            View all tools <ChevronRight className="w-4 h-4" />
-          </Link>
-        </div>
+      {/* HERO */}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            { 
-              title: "New Diagnosis", 
-              desc: "Upload an X-ray or skin scan for AI analysis", 
-              icon: <Plus />, 
-              color: "bg-pastel-pink", 
-              link: "/upload" 
-            },
-            { 
-              title: "Patient Files", 
-              desc: "Review history and previous case assessments", 
-              icon: <Search />, 
-              color: "bg-pastel-blue", 
-              link: "/diagnose" 
-            },
-            { 
-              title: "Consultant Chat", 
-              desc: "Get expert second opinions on complex cases", 
-              icon: <MessageCircle />, 
-              color: "bg-pastel-violet", 
-              link: "/communication" 
-            },
-          ].map((item, i) => (
-            <Link key={item.title} href={item.link}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flo-card p-10 h-full flex flex-col justify-between"
-              >
-                <div className={`w-16 h-16 rounded-[1.5rem] ${item.color} flex items-center justify-center text-white shadow-inner mb-8`}>
-                  <div className="scale-125">{item.icon}</div>
-                </div>
-                <div className="space-y-3">
-                  <h3 className="text-2xl font-black text-slate-800">{item.title}</h3>
-                  <p className="text-slate-400 font-medium leading-relaxed">{item.desc}</p>
-                </div>
-              </motion.div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      <section className="relative overflow-hidden rounded-[3rem] p-16 bg-gradient-to-br from-pastel-pink via-white to-pastel-violet min-h-[520px] flex flex-col justify-center">
 
-      {/* 3. Educational Highlights Section */}
-      <section className="space-y-10">
-        <div className="flex items-end justify-between px-4">
-          <div className="space-y-1">
-            <h2 className="text-3xl font-black text-slate-800">Knowledge Hub</h2>
-            <p className="text-slate-400 font-medium">Latest educational content and clinical guides</p>
-          </div>
-        </div>
+        <div className="absolute top-0 right-0 w-80 h-80 bg-white/20 rounded-full blur-3xl -mr-24 -mt-24"></div>
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-white/10 rounded-full blur-3xl -ml-24 -mb-24"></div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Lungs Knowledge Card */}
-          <Link href="/disease-info?id=pneumonia" className="group">
-            <motion.div 
-              whileHover={{ scale: 0.99 }}
-              className="bg-white rounded-[2.5rem] border border-slate-100 p-8 flex items-center gap-8 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden relative"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-pastel-green/10 rounded-full -mr-16 -mt-16"></div>
-              <div className="relative z-10 w-40 h-40 flex-shrink-0">
-                <LungsIllustration className="w-full h-full" bgColor="#D4F4E2" />
-              </div>
-              <div className="relative z-10 space-y-4">
-                <span className="text-xs font-black uppercase tracking-widest text-[#2DD4BF] opacity-80">Respiratory Health</span>
-                <h3 className="text-3xl font-black text-slate-800">Understanding Pneumonia</h3>
-                <p className="text-slate-400 font-medium line-clamp-2">Learn about advanced diagnostic patterns for lobar pneumonia classification.</p>
-                <div className="pt-2">
-                  <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-50 text-slate-500 font-bold text-sm group-hover:bg-pastel-green/20 group-hover:text-pastel-green transition-colors">
-                    Explore Guide <ChevronRight className="w-4 h-4" />
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </Link>
+        <div className="relative z-10 max-w-3xl space-y-8">
 
-          {/* Skin Knowledge Card */}
-          <Link href="/disease-info?id=skin-rash" className="group">
-            <motion.div 
-              whileHover={{ scale: 0.99 }}
-              className="bg-white rounded-[2.5rem] border border-slate-100 p-8 flex items-center gap-8 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden relative"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-pastel-pink/10 rounded-full -mr-16 -mt-16"></div>
-              <div className="relative z-10 w-40 h-40 flex-shrink-0">
-                <SkinRashArmIllustration className="w-full h-full" bgColor="#FFD1DC" />
-              </div>
-              <div className="relative z-10 space-y-4">
-                <span className="text-xs font-black uppercase tracking-widest text-[#FB7185] opacity-80">Dermatology</span>
-                <h3 className="text-3xl font-black text-slate-800">Identifying Skin Rashes</h3>
-                <p className="text-slate-400 font-medium line-clamp-2">Visual guides for differentiating between common inflammatory skin conditions.</p>
-                <div className="pt-2">
-                  <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-50 text-slate-500 font-bold text-sm group-hover:bg-pastel-pink/20 group-hover:text-pastel-pink transition-colors">
-                    Explore Guide <ChevronRight className="w-4 h-4" />
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </Link>
-        </div>
-      </section>
-
-      {/* 4. Daily Health Insights / Stats Row */}
-      <section className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {[
-          { icon: <Heart className="text-pastel-pink" />, label: "Clinician Pulse", value: "Normal", bg: "bg-pastel-pink/5" },
-          { icon: <Calendar className="text-pastel-blue" />, label: "Case Load", value: "+12 Today", bg: "bg-pastel-blue/5" },
-          { icon: <ShieldCheck className="text-pastel-green" />, label: "AI Safety", value: "Verified", bg: "bg-pastel-green/5" },
-          { icon: <Sparkles className="text-pastel-violet" />, label: "AI Accuracy", value: "98.4%", bg: "bg-pastel-violet/5" },
-        ].map((item, i) => (
           <motion.div
-            key={item.label}
-            whileInView={{ opacity: 1, scale: 1 }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className={`p-8 rounded-[2rem] border border-slate-50 flex items-center gap-4 ${item.bg}`}
+            initial={{opacity:0,scale:0.9}}
+            animate={{opacity:1,scale:1}}
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/40 border border-white font-bold text-sm"
           >
-            <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm">
-              {item.icon}
-            </div>
-            <div>
-              <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">{item.label}</p>
-              <p className="text-slate-800 text-xl font-black">{item.value}</p>
-            </div>
+            <Brain className="w-4 h-4"/>
+            Explainable Medical AI
           </motion.div>
-        ))}
+
+          <motion.h1
+            initial={{opacity:0,y:20}}
+            animate={{opacity:1,y:0}}
+            className="text-6xl md:text-7xl font-black text-slate-800 leading-[1.1]"
+          >
+            Faster Diagnosis
+            <br/>
+            with Explainable AI
+          </motion.h1>
+
+          <p className="text-xl text-slate-500 max-w-xl">
+            Upload medical scans, analyze them using multiple neural networks,
+            and visualize AI reasoning with interpretable heatmaps.
+          </p>
+
+          <div className="flex gap-4 pt-4">
+
+            <Link href="/login">
+              <motion.button
+                whileTap={{scale:0.96}}
+                className="px-8 py-4 rounded-full bg-gradient-to-r from-pastel-pink to-pastel-violet text-white font-bold flex items-center gap-2 shadow-lg"
+              >
+                Start Diagnosis
+                <ChevronRight className="w-4 h-4"/>
+              </motion.button>
+            </Link>
+
+            <Link href="/register">
+              <button className="px-8 py-4 rounded-full bg-white border border-slate-200 font-bold text-slate-700">
+                Create Account
+              </button>
+            </Link>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* FEATURES */}
+
+      <section className="space-y-12">
+
+        <div className="text-center space-y-4">
+          <h2 className="text-4xl font-black text-slate-800">
+            AI Tools for Clinical Decision Making
+          </h2>
+          <p className="text-slate-400 max-w-xl mx-auto">
+            Mediseen combines deep learning and explainable AI to assist doctors
+            in analyzing medical images faster and more accurately.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+
+          {[
+            {
+              title:"Upload Medical Images",
+              desc:"Upload X-rays or dermatology scans for instant AI analysis.",
+              icon:<UploadCloud/>,
+              color:"bg-pastel-pink"
+            },
+            {
+              title:"Multi-Model Diagnosis",
+              desc:"Multiple neural networks analyze scans for higher accuracy.",
+              icon:<Activity/>,
+              color:"bg-pastel-blue"
+            },
+            {
+              title:"Explainable AI Heatmaps",
+              desc:"Visualize exactly which regions influenced AI predictions.",
+              icon:<Sparkles/>,
+              color:"bg-pastel-violet"
+            }
+          ].map((item,i)=>(
+            <motion.div
+              key={item.title}
+              initial={{opacity:0,y:20}}
+              whileInView={{opacity:1,y:0}}
+              viewport={{once:true}}
+              transition={{delay:i*0.1}}
+              className="flo-card p-10 space-y-6"
+            >
+
+              <div className={`w-16 h-16 rounded-[1.5rem] ${item.color} flex items-center justify-center text-white shadow-inner`}>
+                {item.icon}
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-black text-slate-800">
+                  {item.title}
+                </h3>
+                <p className="text-slate-400 font-medium mt-2">
+                  {item.desc}
+                </p>
+              </div>
+
+            </motion.div>
+          ))}
+
+        </div>
+
+      </section>
+
+      {/* AI WORKFLOW */}
+
+      <section className="space-y-12">
+
+        <div className="text-center space-y-4">
+          <h2 className="text-4xl font-black text-slate-800">
+            How Mediseen Works
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-4 gap-6">
+
+          {[
+            {step:"Upload Scan",icon:<UploadCloud/>},
+            {step:"AI Analysis",icon:<Brain/>},
+            {step:"Heatmap Explanation",icon:<Sparkles/>},
+            {step:"Clinical Insight",icon:<ShieldCheck/>}
+          ].map((item,i)=>(
+            <motion.div
+              key={item.step}
+              initial={{opacity:0,scale:0.9}}
+              whileInView={{opacity:1,scale:1}}
+              viewport={{once:true}}
+              transition={{delay:i*0.1}}
+              className="p-8 rounded-[2rem] bg-white border border-slate-100 shadow-sm flex flex-col items-center text-center gap-4"
+            >
+
+              <div className="w-14 h-14 rounded-2xl bg-pastel-blue/20 flex items-center justify-center">
+                {item.icon}
+              </div>
+
+              <p className="font-bold text-slate-700">
+                {item.step}
+              </p>
+
+            </motion.div>
+          ))}
+
+        </div>
+
+      </section>
+
+      {/* CTA */}
+
+      <section className="rounded-[3rem] bg-gradient-to-r from-pastel-blue to-pastel-violet p-20 text-center text-white space-y-6">
+
+        <h2 className="text-4xl font-black">
+          Ready to experience AI-assisted diagnosis?
+        </h2>
+
+        <p className="text-white/80 text-lg">
+          Join clinicians using Mediseen to analyze medical scans with explainable AI.
+        </p>
+
+        <Link href="/register">
+          <motion.button
+            whileTap={{scale:0.96}}
+            className="px-10 py-4 rounded-full bg-white text-slate-700 font-bold flex items-center gap-2 mx-auto"
+          >
+            Create Account
+            <ChevronRight className="w-4 h-4"/>
+          </motion.button>
+        </Link>
+
       </section>
 
     </div>
