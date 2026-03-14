@@ -1,28 +1,46 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from dotenv import load_dotenv
-import firebase_admin
-from firebase_admin import credentials, auth
 import os
-import httpx
-import json
 import uuid
 import traceback
-from fastapi.responses import FileResponse
 
-# ADD THESE IMPORTS
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles  # <--- Added for URL access
+from pydantic import BaseModel
+from dotenv import load_dotenv
+from pathlib import Path
+
+
+# Firebase
+import firebase_admin
+from firebase_admin import credentials, auth
+
+# Graph Pipeline
 import sys
-sys.path.append("../model")
-from utils.inference import MedicalClassifier
+sys.path.append("..")
+
+from model.graph import build_graph
 
 load_dotenv()
 
-UPLOAD_DIR = "uploads"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
-
 app = FastAPI(title="Mediseen Backend")
 
+# ---------------------------------------------------
+# 0️⃣ Path Configuration & Static Mounting
+# ---------------------------------------------------
+# This ensures we are always in the 'backend' folder context
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "uploads"))
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+# Serves files at: http://localhost:8000/uploads/
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
+# ---------------------------------------------------
+# Build LangGraph once
+# ---------------------------------------------------
+graph = build_graph()
+
+# 1️⃣ CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -31,141 +49,102 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Firebase initialization
-if os.path.exists("firebase_admin.json"):
+# 2️⃣ Firebase Init
+if not firebase_admin._apps:
     cred = credentials.Certificate("firebase_admin.json")
     firebase_admin.initialize_app(cred)
-else:
-    firebase_admin.initialize_app(options={
-        'projectId': os.getenv("FIREBASE_PROJECT_ID", "mediseen")
-    })
 
-<<<<<<< HEAD
-=======
-# LOAD MODEL (NEW)
-classifier = MedicalClassifier(
-    model_path="../model/models/pneumonia_resnet50_model.h5",
-    class_names=["NORMAL", "PNEUMONIA"]
-)
-
-# Request model
->>>>>>> 711b9ddb24bee9afe280d96332ebe9a89cfb97bb
+# 3️⃣ Request Models
 class TokenRequest(BaseModel):
     token: str
 
+# 4️⃣ Health Check
 @app.get("/")
 def root():
-    return {"message": "Mediseen API Running"}
+    return {"status": "Mediseen API running", "upload_dir": UPLOAD_DIR}
 
+# 5️⃣ Verify Firebase Token
 @app.post("/auth/verify")
 async def verify_token(data: TokenRequest):
     try:
-        decoded_token = auth.verify_id_token(data.token)
-        return {"status": "verified", "uid": decoded_token["uid"]}
-    except:
-        raise HTTPException(status_code=401, detail="Invalid token")
+        decoded = auth.verify_id_token(data.token)
+        return {"status": "verified", "uid": decoded["uid"]}
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid Firebase token")
 
-@app.get("/heatmap/{image_id}")
-async def get_heatmap(image_id: str):
-    path = os.path.join(UPLOAD_DIR, f"{image_id}_heatmap.jpg")
-    if os.path.exists(path):
-        return FileResponse(path)
-    raise HTTPException(status_code=404, detail="Heatmap not found")
-
-@app.post("/predict")
-async def predict_image(image: UploadFile = File(...)):
-    image_content = await image.read()
-    
-    # Defaults
-    prediction = "Analysis Error"
-    confidence = 0.0
-    heatmap_url = None 
-    model_name = "Model-Offline"
-    status_msg = "Please ensure the AI model server is running on port 8005."
-
+# ---------------------------------------------------
+# 6️⃣ AI Diagnosis Endpoint (Updated Paths)
+# ---------------------------------------------------
+@app.post("/diagnose")
+async def diagnose(
+    image: UploadFile = File(...),
+    symptoms: str = Form(...)
+):
     try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            # 1. Get Prediction
-            predict_response = await client.post(
-                "http://localhost:8005/predict/pneumonia", 
-                files={"file": (image.filename, image_content, "image/jpeg")}
-            )
-            
-            if predict_response.status_code == 200:
-                result = predict_response.json()
-                prediction = result["prediction"]
-                confidence = float(result["confidence"].strip('%')) / 100.0
-                model_name = result["model"]
-                status_msg = f"Inference run by {model_name}."
-            else:
-                print(f"Prediction server error: {predict_response.status_code} - {predict_response.text}")
+        session_id = str(uuid.uuid4())
+        
+        # 1. Save to UPLOAD_DIR with absolute path
+        image_filename = f"{session_id}_{image.filename}"
+        image_path = os.path.join(UPLOAD_DIR, image_filename)
 
-            # 2. Get Grad-CAM Heatmap
-            heatmap_gen_response = await client.post(
-                "http://localhost:8005/generate-heatmap",
-                files={"file": (image.filename, image_content, "image/jpeg")}
-            )
-            
-            if heatmap_gen_response.status_code == 200:
-                image_id = str(uuid.uuid4())
-                heatmap_path = os.path.join(UPLOAD_DIR, f"{image_id}_heatmap.jpg")
-                with open(heatmap_path, "wb") as f:
-                    f.write(heatmap_gen_response.content)
-                heatmap_url = f"http://localhost:8000/heatmap/{image_id}"
-            else:
-                print(f"Heatmap server error: {heatmap_gen_response.status_code} - {heatmap_gen_response.text}")
+        with open(image_path, "wb") as buffer:
+            buffer.write(await image.read())
 
-    except Exception as e:
-        traceback.print_exc()
-        print(f"Backend-to-Model connection failed: {e}")
+        # 2. Prepare Graph State
+        state = {
+            "session_id": session_id,
+            "image_path": image_path,
+            "user_symptoms": symptoms,
+            "prediction": "",
+            "confidence_score": 0.0,
+            "explanation": "",
+            "db_context": "",
+            "final_report": "",
+            "heatmap_path": "",
+            "report_path": ""
+        }
 
-<<<<<<< HEAD
-    return {
-        "prediction": prediction,
-        "confidence": confidence,
-        "heatmap_url": heatmap_url,
-        "explanation": f"{status_msg} Analysis suggests indicators of {prediction}.",
-        "diseaseId": "pneumonia",
-        "nextSteps": [
-            "Verify the AI model server (Port 8005) is active",
-            "Consult a specialist for clinical confirmation",
-            "Verify image quality/orientation"
-        ],
-        "severity": "medium" if prediction == "PNEUMONIA" else "low"
-    }
-=======
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid authentication token"
-        )
+        # 3. Run AI pipeline
+        result = graph.invoke(state)
 
+        # 4. Generate Public URLs (instead of just local paths)
+        # Note: result["heatmap_path"] is an absolute local path. 
+        # We extract just the filename to give the frontend a URL.
+        heatmap_file = os.path.basename(result["heatmap_path"])
+        report_file = os.path.basename(result["report_path"])
 
-# ---------------------------
-# NEW PNEUMONIA PREDICTION API
-# ---------------------------
-
-@app.post("/predict/pneumonia")
-async def predict_pneumonia(file: UploadFile = File(...)):
-
-    try:
-
-        image_bytes = await file.read()
-
-        result = classifier.predict(image_bytes)
+        # 5. Cleanup the ORIGINAL uploaded image to save space
+        # (Only do this if your report_node has already finished using it)
+        try:
+            os.remove(image_path)
+        except:
+            pass
 
         return {
-            "success": True,
-            "prediction": result["prediction"],
-            "confidence": result["confidence"],
-            "heatmap": result["heatmap"],          # 👈 send heatmap
-            "affected_area": result["affected_area"]  # 👈 send severity data
+            "session_id": session_id,
+            "diagnosis": result["prediction"],
+            "confidence": result["confidence_score"],
+            "explanation": result["final_report"],
+            "heatmap_url": f"/uploads/{heatmap_file}",
+            "report_url": f"/uploads/{report_file}"
         }
 
     except Exception as e:
+        print("❌ DIAGNOSIS ERROR")
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="Diagnosis pipeline failed")
 
-        raise HTTPException(
-            status_code=500,
-            detail=str(e)
-        )
+# 7️⃣ Download Local Report
+@app.get("/report")
+def download_report(filename: str):
+    # Security: Only allow files from the UPLOAD_DIR
+    file_path = os.path.join(UPLOAD_DIR, filename)
 
->>>>>>> 711b9ddb24bee9afe280d96332ebe9a89cfb97bb
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+
+    return FileResponse(
+        file_path,
+        media_type="application/octet-stream",
+        filename=filename
+    )

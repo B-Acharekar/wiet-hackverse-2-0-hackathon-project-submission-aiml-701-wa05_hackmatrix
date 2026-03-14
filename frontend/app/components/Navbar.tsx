@@ -2,82 +2,65 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { motion } from "framer-motion"
-import { 
-  Home, 
-  Sparkles, 
-  UploadCloud, 
-  Activity, 
-  MessageCircle, 
-  BookOpen,
-  HeartPulse
-} from "lucide-react"
-
-const navItems = [
-  { name: "Home", path: "/", icon: <Home className="w-5 h-5" /> },
-  { name: "Insights", path: "/insights", icon: <Sparkles className="w-5 h-5" /> },
-  { name: "Diagnosis", path: "/diagnose", icon: <Activity className="w-5 h-5" /> },
-  { name: "Wellness", path: "/wellness", icon: <HeartPulse className="w-5 h-5" /> },
-  { name: "Education", path: "/disease-info", icon: <BookOpen className="w-5 h-5" /> },
-]
-
-import { MediSeenEyeLogo } from "./Illustrations"
+import { Home, Activity, Heart, BookOpen, LineChart } from "lucide-react"
 
 export default function Navbar() {
+
   const pathname = usePathname()
 
+  const navItems = [
+    { name: "HOME", href: "/home", icon: <Home className="w-4 h-4" /> },
+    { name: "DIAGNOSIS", href: "/diagnose", icon: <Activity className="w-4 h-4" /> },
+    { name: "WELLNESS", href: "/wellness", icon: <Heart className="w-4 h-4" /> },
+    { name: "EDUCATION", href: "/disease-info", icon: <BookOpen className="w-4 h-4" /> },
+  ]
+
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
-      <div className="bg-white/90 backdrop-blur-xl border border-black/5 shadow-lg shadow-black/[0.05] rounded-2xl px-10 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pastel-pink to-pastel-violet flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-500">
-            <MediSeenEyeLogo className="w-9 h-9" />
+    <div className="sticky top-6 z-50 flex justify-center">
+
+      <div className="w-[92%] max-w-6xl h-[72px] flex items-center justify-between px-8 bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-black/5">
+
+        {/* LOGO */}
+        <Link href="/home" className="flex items-center gap-3 font-black text-lg">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pastel-pink to-pastel-violet flex items-center justify-center text-white">
+            ◉
           </div>
-          <span className="text-2xl font-black text-black tracking-tight">
-            MediSeen
-          </span>
+          MediSeen
         </Link>
-        
-        {/* Navigation Tabs - Boxy Style */}
-        <div className="flex items-center gap-4">
+
+        {/* NAVIGATION */}
+        <div className="flex items-center gap-8">
+
           {navItems.map((item) => {
-            const isActive = item.path === "/" 
-              ? pathname === "/" 
-              : pathname.startsWith(item.path)
-            
+
+            const active = pathname === item.href
+
             return (
-              <Link 
-                key={item.name} 
-                href={item.path}
-                className={`relative px-6 py-3 rounded-xl transition-all duration-300 flex items-center gap-3 group ${
-                  isActive 
-                    ? "text-black" 
-                    : "text-black/40 hover:text-black"
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`flex items-center gap-2 text-sm font-bold tracking-wide transition-all
+                ${
+                  active
+                    ? "text-black bg-pastel-violet/10 px-4 py-2 rounded-xl shadow-sm"
+                    : "text-black/50 hover:text-black"
                 }`}
               >
-                {isActive && (
-                  <motion.div
-                    layoutId="navbar-active-bg"
-                    className="absolute inset-0 bg-gradient-to-br from-white to-slate-50 rounded-xl border-b-4 border-pastel-violet shadow-sm"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-                <div className={`relative z-10 transition-transform group-hover:scale-110 ${isActive ? "text-pastel-violet" : ""}`}>
-                  {item.icon}
-                </div>
-                <span className="relative z-10 font-black text-xs uppercase tracking-widest">{item.name}</span>
+                {item.icon}
+                {item.name}
               </Link>
             )
           })}
+
         </div>
-        
-        {/* Profile/Menu Mock */}
-        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-pastel-blue to-pastel-blue/60 border border-black/5 flex items-center justify-center text-black cursor-pointer hover:shadow-md transition-all">
-          <span className="font-black text-xs">SP</span>
+
+        {/* PROFILE */}
+        <div className="w-10 h-10 rounded-xl bg-blue-200 flex items-center justify-center font-bold text-sm">
+          SP
         </div>
+
       </div>
-    </nav>
+
+    </div>
   )
 }
