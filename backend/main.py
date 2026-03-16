@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 
+
 # Firebase
 import firebase_admin
 from firebase_admin import credentials, auth
@@ -20,6 +21,8 @@ import sys
 sys.path.append("..")
 
 from model.graph import build_graph
+# Assuming diet_node is in a file named diet_node.py inside the model folder
+from model.diet_node import diet_node
 
 load_dotenv()
 
@@ -57,6 +60,13 @@ if not firebase_admin._apps:
 # 3️⃣ Request Models
 class TokenRequest(BaseModel):
     token: str
+
+class DietRequest(BaseModel):
+    condition: str
+    symptoms: str = "General"
+    age: str = "Adult"
+    activity_level: str = "Moderate"
+    food_allergies: str = "None"
 
 # 4️⃣ Health Check
 @app.get("/")
@@ -134,6 +144,31 @@ async def diagnose(
         traceback.print_exc()
         raise HTTPException(status_code=500, detail="Diagnosis pipeline failed")
 
+@app.post("/generate-diet")
+async def get_diet_only(data: DietRequest):
+    try:
+        print(f"--- [Standalone Diet Request] Condition: {data.condition} ---")
+        
+        # Convert Pydantic model to dict for diet_node
+        state_dict = {
+            "prediction": data.condition,
+            "user_symptoms": data.symptoms,
+            "age": data.age,
+            "activity_level": data.activity_level,
+            "food_allergies": data.food_allergies
+        }
+
+        result = diet_node(state_dict)
+
+        return {
+            "status": "success",
+            "condition": data.condition,
+            "diet_plan": result["diet_plan"]
+        }
+
+    except Exception as e:
+        print(f"❌ DIET ENDPOINT ERROR: {e}")
+        raise HTTPException(status_code=500, detail="Could not generate diet plan")
 # 7️⃣ Download Local Report
 @app.get("/report")
 def download_report(filename: str):
